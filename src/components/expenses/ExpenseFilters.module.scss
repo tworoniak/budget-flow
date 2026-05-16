@@ -54,16 +54,39 @@
   color-scheme: dark;
 }
 
-.clearBtn {
-  font-size: $text-sm;
-  font-weight: $font-medium;
-  color: $text-secondary;
-  padding: $space-2 $space-3;
+.amount {
+  @extend %control;
+  width: 90px;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+.sortGroup {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+}
+
+.sortDirBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
   border-radius: $radius-md;
-  transition: color $transition-fast, background-color $transition-fast;
+  color: $text-secondary;
+  font-size: $text-sm;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+  flex-shrink: 0;
 
   &:hover {
     color: $text-primary;
+    border-color: $text-muted;
     background-color: $bg-hover;
   }
 }

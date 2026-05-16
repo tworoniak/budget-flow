@@ -1,11 +1,18 @@
 import { CATEGORIES } from '../../constants/categories';
 import styles from './ExpenseFilters.module.scss';
 
+export type SortBy = 'date' | 'amount' | 'title';
+export type SortDir = 'asc' | 'desc';
+
 export interface FilterState {
   search: string;
   category: string;
   startDate: string;
   endDate: string;
+  minAmount: string;
+  maxAmount: string;
+  sortBy: SortBy;
+  sortDir: SortDir;
 }
 
 interface ExpenseFiltersProps {
@@ -18,7 +25,9 @@ export default function ExpenseFilters({ filters, onChange }: ExpenseFiltersProp
     onChange({ ...filters, [key]: e.target.value });
   };
 
-  const hasActive = filters.search || filters.category || filters.startDate || filters.endDate;
+  const toggleSortDir = () => {
+    onChange({ ...filters, sortDir: filters.sortDir === 'asc' ? 'desc' : 'asc' });
+  };
 
   return (
     <div className={styles.filters}>
@@ -49,14 +58,34 @@ export default function ExpenseFilters({ filters, onChange }: ExpenseFiltersProp
         onChange={set('endDate')}
         title="To date"
       />
-      {hasActive && (
-        <button
-          className={styles.clearBtn}
-          onClick={() => onChange({ search: '', category: '', startDate: '', endDate: '' })}
-        >
-          Clear
+      <input
+        type="number"
+        className={styles.amount}
+        placeholder="Min $"
+        value={filters.minAmount}
+        onChange={set('minAmount')}
+        min="0"
+        step="0.01"
+      />
+      <input
+        type="number"
+        className={styles.amount}
+        placeholder="Max $"
+        value={filters.maxAmount}
+        onChange={set('maxAmount')}
+        min="0"
+        step="0.01"
+      />
+      <div className={styles.sortGroup}>
+        <select className={styles.select} value={filters.sortBy} onChange={set('sortBy')}>
+          <option value="date">Date</option>
+          <option value="amount">Amount</option>
+          <option value="title">Title</option>
+        </select>
+        <button className={styles.sortDirBtn} onClick={toggleSortDir} title={filters.sortDir === 'asc' ? 'Ascending' : 'Descending'}>
+          {filters.sortDir === 'asc' ? '↑' : '↓'}
         </button>
-      )}
+      </div>
     </div>
   );
 }
