@@ -1,0 +1,164 @@
+@use '../../styles/variables' as *;
+
+.card {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-4 $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  transition: border-color $transition-fast;
+
+  &:hover {
+    border-color: $border-subtle;
+
+    .actions {
+      opacity: 1;
+    }
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+.badge {
+  width: 34px;
+  height: 34px;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  flex-shrink: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.amounts {
+  font-size: $text-xs;
+}
+
+.spent {
+  color: $text-secondary;
+  font-weight: $font-medium;
+}
+
+.spentOver {
+  color: $danger;
+  font-weight: $font-medium;
+}
+
+.limit {
+  color: $text-muted;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-shrink: 0;
+}
+
+.remaining {
+  font-size: $text-xs;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.overBadge {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $danger;
+  background-color: $danger-subtle;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: $radius-sm;
+  padding: 2px $space-2;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: $space-1;
+  opacity: 0;
+  transition: opacity $transition-fast;
+}
+
+.actionBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: $radius-sm;
+  font-size: $text-xs;
+  color: $text-muted;
+  background: transparent;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+}
+
+.deleteBtn {
+  &:hover {
+    color: $danger;
+    background-color: $danger-subtle;
+  }
+}
+
+.barTrack {
+  width: 100%;
+  height: 4px;
+  background-color: $border-default;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width $transition-base;
+}
+
+.barOver {
+  background-color: $danger !important;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pct {
+  font-size: $text-xs;
+  color: $text-muted;
+}
+
+.limitLabel {
+  font-size: $text-xs;
+  color: $text-muted;
+}

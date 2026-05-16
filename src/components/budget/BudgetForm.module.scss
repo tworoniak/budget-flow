@@ -1,0 +1,94 @@
+@use '../../styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: $space-2 $space-3;
+  background-color: $bg-secondary;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $text-sm;
+  font-family: $font-sans;
+  transition: border-color $transition-fast;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.select {
+  cursor: pointer;
+
+  option {
+    background-color: $bg-card;
+    color: $text-primary;
+  }
+}
+
+.error {
+  font-size: $text-xs;
+  color: $danger;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-3;
+  padding-top: $space-2;
+}
+
+.cancelBtn {
+  padding: $space-2 $space-4;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  background: transparent;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
+}
+
+.submitBtn {
+  padding: $space-2 $space-4;
+  background-color: $accent;
+  color: #fff;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  border-radius: $radius-md;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}

@@ -1,0 +1,28 @@
+@use '../../styles/variables' as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-16;
+  text-align: center;
+  gap: $space-2;
+}
+
+.emptyTitle {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+}
+
+.emptySub {
+  font-size: $text-sm;
+  color: $text-muted;
+}
