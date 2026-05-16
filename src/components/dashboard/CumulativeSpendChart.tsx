@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   AreaChart,
   Area,
@@ -17,10 +17,23 @@ interface DataPoint {
   amount: number;
 }
 
+interface ForecastPoint {
+  day: number;
+  forecast: number;
+}
+
+interface MergedPoint {
+  day: number;
+  amount?: number;
+  forecast?: number;
+  budget?: number;
+}
+
 interface CumulativeSpendChartProps {
   thisMonthData: DataPoint[];
   lastMonthData: DataPoint[];
   budgetLimit: number;
+  forecastLine?: ForecastPoint[];
 }
 
 const CustomTooltip = ({
@@ -28,12 +41,17 @@ const CustomTooltip = ({
   payload,
 }: {
   active?: boolean;
-  payload?: { value: number }[];
+  payload?: { value: number; dataKey?: string }[];
 }) => {
   if (active && payload && payload.length) {
+    const amountEntry = payload.find((p) => p.dataKey === 'amount');
+    const forecastEntry = payload.find((p) => p.dataKey === 'forecast');
+    const display = amountEntry ?? forecastEntry;
+    if (!display) return null;
     return (
       <div className={styles.tooltip}>
-        <span>${payload[0].value.toFixed(2)}</span>
+        <span>${display.value.toFixed(2)}</span>
+        {forecastEntry && !amountEntry && <span className={styles.tooltipLabel}>projected</span>}
       </div>
     );
   }
@@ -44,11 +62,30 @@ export default function CumulativeSpendChart({
   thisMonthData,
   lastMonthData,
   budgetLimit,
+  forecastLine,
 }: CumulativeSpendChartProps) {
   const [period, setPeriod] = useState<Period>('this-month');
 
-  const data = period === 'this-month' ? thisMonthData : lastMonthData;
-  const total = data[data.length - 1]?.amount ?? 0;
+  const rawData = period === 'this-month' ? thisMonthData : lastMonthData;
+  const total = rawData[rawData.length - 1]?.amount ?? 0;
+
+  const data: MergedPoint[] = useMemo(() => {
+    if (period !== 'this-month' || !forecastLine || forecastLine.length === 0) {
+      return rawData;
+    }
+    const forecastMap = new Map(forecastLine.map((p) => [p.day, p.forecast]));
+    const maxDay = forecastLine[forecastLine.length - 1]?.day ?? rawData[rawData.length - 1]?.day ?? 0;
+    const actualMap = new Map(rawData.map((p) => [p.day, p.amount]));
+    const merged: MergedPoint[] = [];
+    for (let d = 1; d <= maxDay; d++) {
+      merged.push({
+        day: d,
+        amount: actualMap.get(d),
+        forecast: forecastMap.get(d),
+      });
+    }
+    return merged;
+  }, [period, rawData, forecastLine]);
 
   return (
     <div className={styles.wrapper}>
@@ -121,7 +158,23 @@ export default function CumulativeSpendChart({
               fill="url(#spendGradient)"
               dot={false}
               activeDot={{ r: 4, fill: '#6366f1', strokeWidth: 0 }}
+              isAnimationActive={false}
+              connectNulls={false}
             />
+            {period === 'this-month' && forecastLine && forecastLine.length > 0 && (
+              <Area
+                type="monotone"
+                dataKey="forecast"
+                stroke="#5a5a6a"
+                strokeWidth={1.5}
+                strokeDasharray="5 4"
+                fill="none"
+                dot={false}
+                activeDot={{ r: 3, fill: '#5a5a6a', strokeWidth: 0 }}
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+            )}
           </AreaChart>
         </ResponsiveContainer>
       </div>

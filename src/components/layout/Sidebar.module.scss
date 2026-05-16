@@ -1,13 +1,16 @@
 @use '../../styles/variables' as *;
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: $sidebar-width;
-  min-height: 100svh;
+  height: 100svh;
   background-color: $bg-secondary;
   border-right: 1px solid $border-default;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
+  z-index: 10;
 }
 
 .logo {

@@ -72,4 +72,13 @@
   font-weight: $font-semibold;
   color: $text-primary;
   box-shadow: $shadow-md;
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.tooltipLabel {
+  font-size: $text-xs;
+  font-weight: $font-normal;
+  color: $text-muted;
 }
