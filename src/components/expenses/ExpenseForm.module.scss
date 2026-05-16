@@ -1,0 +1,132 @@
+@use '../../styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+}
+
+%input-base {
+  background-color: $bg-primary;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $text-sm;
+  padding: $space-2 $space-3;
+  width: 100%;
+  transition: border-color $transition-fast;
+  outline: none;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &.error {
+    border-color: $danger;
+  }
+}
+
+.input {
+  @extend %input-base;
+  height: 38px;
+}
+
+.select {
+  @extend %input-base;
+  height: 38px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a9a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $space-3 center;
+  padding-right: $space-8;
+  cursor: pointer;
+
+  option {
+    background-color: $bg-card;
+  }
+}
+
+.textarea {
+  @extend %input-base;
+  resize: vertical;
+  padding: $space-3;
+  line-height: 1.5;
+}
+
+.errorMsg {
+  font-size: $text-xs;
+  color: $danger;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $text-sm;
+  color: $text-secondary;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: $accent;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-3;
+  padding-top: $space-2;
+}
+
+.cancelBtn {
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+}
+
+.submitBtn {
+  padding: $space-2 $space-5;
+  border-radius: $radius-md;
+  background-color: $accent;
+  color: #fff;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}

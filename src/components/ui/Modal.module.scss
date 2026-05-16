@@ -1,0 +1,51 @@
+@use '../../styles/variables' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: $space-4;
+}
+
+.panel {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+  width: 100%;
+  max-width: 480px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-5 $space-6;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.title {
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.closeBtn {
+  color: $text-muted;
+  font-size: $text-sm;
+  padding: $space-1;
+  border-radius: $radius-sm;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.body {
+  padding: $space-6;
+}

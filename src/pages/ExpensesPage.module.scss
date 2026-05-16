@@ -1,0 +1,56 @@
+@use '../styles/variables' as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  max-width: 860px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.title {
+  font-size: $text-2xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: $text-sm;
+  color: $text-muted;
+  margin-top: $space-1;
+}
+
+.filtersRow {
+  display: flex;
+}
+
+.addBtn {
+  padding: $space-2 $space-5;
+  background-color: $accent;
+  color: #fff;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  border-radius: $radius-md;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}
+
+.listCard {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  min-height: 120px;
+}
