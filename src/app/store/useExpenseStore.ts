@@ -7,6 +7,7 @@ interface ExpenseStore {
   addExpense: (expense: Expense) => void;
   updateExpense: (id: string, updates: Partial<Expense>) => void;
   deleteExpense: (id: string) => void;
+  importExpenses: (incoming: Expense[]) => void;
 }
 
 export const useExpenseStore = create<ExpenseStore>()(
@@ -25,6 +26,12 @@ export const useExpenseStore = create<ExpenseStore>()(
         set((state) => ({
           expenses: state.expenses.filter((e) => e.id !== id),
         })),
+      importExpenses: (incoming) =>
+        set((state) => {
+          const existingIds = new Set(state.expenses.map((e) => e.id));
+          const newOnes = incoming.filter((e) => !existingIds.has(e.id));
+          return { expenses: [...newOnes, ...state.expenses] };
+        }),
     }),
     { name: 'budgetflow-expenses' }
   )

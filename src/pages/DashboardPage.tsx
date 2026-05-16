@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Upload, Plus } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
+import { downloadCsv } from '../utils/csvExport';
 import Modal from '../components/ui/Modal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import SummaryCard from '../components/dashboard/SummaryCard';
@@ -34,7 +35,7 @@ export default function DashboardPage() {
           <p className={styles.date}>{monthLabel} · {expenses.length} transactions</p>
         </div>
         <div className={styles.heroActions}>
-          <button className={styles.exportBtn}><Upload size={14} /> Export</button>
+          <button className={styles.exportBtn} onClick={() => downloadCsv(expenses)}><Upload size={14} /> Export</button>
           <button className={styles.addBtn} onClick={() => setIsModalOpen(true)}>
             <Plus size={14} /> Add expense
           </button>

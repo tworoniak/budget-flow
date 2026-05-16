@@ -1,0 +1,206 @@
+@use '../../styles/variables' as *;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.dropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-10 $space-6;
+  border: 2px dashed $border-default;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    border-color: $accent;
+    background-color: $accent-subtle;
+  }
+
+  &.dragging {
+    border-color: $accent;
+    background-color: $accent-subtle;
+  }
+}
+
+.dropIcon {
+  color: $text-muted;
+}
+
+.dropTitle {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-secondary;
+}
+
+.dropSub {
+  font-size: $text-xs;
+  color: $text-muted;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.fileName {
+  font-size: $text-xs;
+  color: $text-muted;
+  font-family: $font-mono;
+}
+
+.errorList {
+  background-color: $danger-subtle;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: $radius-md;
+  padding: $space-3;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.errorHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $danger;
+}
+
+.errorRow {
+  font-size: $text-xs;
+  color: $danger;
+  padding-left: $space-5;
+}
+
+.successHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $success;
+}
+
+.tableWrapper {
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  overflow: hidden;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $text-xs;
+
+  th {
+    background-color: $bg-secondary;
+    color: $text-muted;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: $space-2 $space-3;
+    text-align: left;
+    border-bottom: 1px solid $border-default;
+    position: sticky;
+    top: 0;
+  }
+
+  td {
+    color: $text-secondary;
+    padding: $space-2 $space-3;
+    border-bottom: 1px solid $border-subtle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background-color: $bg-hover;
+  }
+}
+
+.moreRows {
+  font-size: $text-xs;
+  color: $text-muted;
+  padding: $space-2 $space-3;
+  text-align: center;
+  background-color: $bg-secondary;
+}
+
+.noValid {
+  font-size: $text-sm;
+  color: $text-muted;
+  text-align: center;
+  padding: $space-4;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-3;
+  padding-top: $space-2;
+}
+
+.cancelBtn {
+  padding: $space-2 $space-4;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  background: transparent;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
+}
+
+.confirmBtn {
+  padding: $space-2 $space-4;
+  background-color: $accent;
+  color: #fff;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  border-radius: $radius-md;
+  transition: background-color $transition-fast, opacity $transition-fast;
+
+  &:hover:not(:disabled) {
+    background-color: $accent-hover;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.formatHint {
+  font-size: $text-xs;
+  color: $text-muted;
+  border-top: 1px solid $border-subtle;
+  padding-top: $space-3;
+
+  code {
+    font-family: $font-mono;
+    color: $text-secondary;
+  }
+}

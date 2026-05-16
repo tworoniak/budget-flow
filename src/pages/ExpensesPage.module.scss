@@ -34,6 +34,26 @@
   flex-shrink: 0;
 }
 
+.importBtn {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  background-color: transparent;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
+}
+
 .exportBtn {
   display: flex;
   align-items: center;

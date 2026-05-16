@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react';
-import { Upload, Plus } from 'lucide-react';
+import { Upload, Plus, Download } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
+import { downloadCsv } from '../utils/csvExport';
 import Modal from '../components/ui/Modal';
+import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import ExpenseFilters, { type FilterState } from '../components/expenses/ExpenseFilters';
 import ExpenseList from '../components/expenses/ExpenseList';
@@ -32,6 +34,7 @@ function applyTabFilter(expenses: Expense[], tab: ExpenseTab): Expense[] {
 export default function ExpensesPage() {
   const { expenses } = useExpenseStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isImportOpen, setIsImportOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>();
   const [activeTab, setActiveTab] = useState<ExpenseTab>('all');
   const [filters, setFilters] = useState<FilterState>({
@@ -68,8 +71,15 @@ export default function ExpensesPage() {
           </p>
         </div>
         <div className={styles.headerActions}>
-          <button className={styles.exportBtn}><Upload size={14} /> Export</button>
-          <button className={styles.addBtn} onClick={openAdd}><Plus size={14} /> New expense</button>
+          <button className={styles.importBtn} onClick={() => setIsImportOpen(true)}>
+            <Download size={14} /> Import
+          </button>
+          <button className={styles.exportBtn} onClick={() => downloadCsv(expenses)}>
+            <Upload size={14} /> Export
+          </button>
+          <button className={styles.addBtn} onClick={openAdd}>
+            <Plus size={14} /> New expense
+          </button>
         </div>
       </div>
 
@@ -92,6 +102,8 @@ export default function ExpensesPage() {
       >
         <ExpenseForm expense={editingExpense} onClose={closeModal} />
       </Modal>
+
+      <ImportModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} />
     </div>
   );
 }
