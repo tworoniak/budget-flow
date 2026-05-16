@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useMotionValue, useSpring, useTransform, motion } from 'framer-motion';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import styles from './SummaryCard.module.scss';
 
@@ -17,6 +19,21 @@ interface SummaryCardProps {
   accent?: boolean;
 }
 
+interface ParsedValue {
+  prefix: string;
+  num: number;
+  suffix: string;
+  decimals: number;
+}
+
+function parseValueStr(value: string): ParsedValue | null {
+  const dollarMatch = value.match(/^\$(\d+(?:\.\d+)?)$/);
+  if (dollarMatch) return { prefix: '$', num: parseFloat(dollarMatch[1]), suffix: '', decimals: 2 };
+  const pctMatch = value.match(/^(\d+(?:\.\d+)?)%$/);
+  if (pctMatch) return { prefix: '', num: parseFloat(pctMatch[1]), suffix: '%', decimals: 1 };
+  return null;
+}
+
 export default function SummaryCard({
   label,
   value,
@@ -27,6 +44,19 @@ export default function SummaryCard({
   sparkColor = '#6366f1',
   accent,
 }: SummaryCardProps) {
+  const parsed = parseValueStr(value);
+  const motionNum = useMotionValue(0);
+  const springNum = useSpring(motionNum, { mass: 0.5, stiffness: 100, damping: 18 });
+  const displayValue = useTransform(springNum, (n) => {
+    if (!parsed) return value;
+    return `${parsed.prefix}${n.toFixed(parsed.decimals)}${parsed.suffix}`;
+  });
+
+  useEffect(() => {
+    if (parsed) motionNum.set(parsed.num);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
   return (
     <div className={`${styles.card} ${accent ? styles.accent : ''}`}>
       <div className={styles.top}>
@@ -39,7 +69,9 @@ export default function SummaryCard({
           </span>
         )}
       </div>
-      <div className={styles.value}>{value}</div>
+      <div className={styles.value}>
+        {parsed ? <motion.span>{displayValue}</motion.span> : value}
+      </div>
       {sparkData && sparkData.length > 0 && (
         <div className={styles.sparkline}>
           <ResponsiveContainer width="100%" height={40}>

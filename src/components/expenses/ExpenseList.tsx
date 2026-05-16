@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import type { Expense } from '../../types';
 import type { FilterState } from './ExpenseFilters';
 import ExpenseRow from './ExpenseRow';
@@ -63,9 +64,23 @@ export default function ExpenseList({ expenses, filters, onEdit }: ExpenseListPr
 
   return (
     <div className={styles.list}>
-      {sorted.map((expense) => (
-        <ExpenseRow key={expense.id} expense={expense} onEdit={onEdit} />
-      ))}
+      <AnimatePresence initial={false}>
+        {sorted.map((expense, index) => (
+          <motion.div
+            key={expense.id}
+            layout
+            initial={{ opacity: 0, y: -6 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { delay: Math.min(index, 5) * 0.04, duration: 0.16, ease: 'easeOut' },
+            }}
+            exit={{ opacity: 0, x: -16, transition: { duration: 0.14 } }}
+          >
+            <ExpenseRow expense={expense} onEdit={onEdit} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
