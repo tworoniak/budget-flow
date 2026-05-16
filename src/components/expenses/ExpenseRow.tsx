@@ -1,3 +1,4 @@
+import { Pencil, X } from 'lucide-react';
 import type { Expense } from '../../types';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
 import styles from './ExpenseRow.module.scss';
@@ -60,14 +61,14 @@ export default function ExpenseRow({ expense, onEdit }: ExpenseRowProps) {
             onClick={() => onEdit(expense)}
             aria-label="Edit expense"
           >
-            ✎
+            <Pencil size={13} />
           </button>
           <button
             className={`${styles.actionBtn} ${styles.deleteBtn}`}
             onClick={() => deleteExpense(expense.id)}
             aria-label="Delete expense"
           >
-            ✕
+            <X size={13} />
           </button>
         </div>
       </div>

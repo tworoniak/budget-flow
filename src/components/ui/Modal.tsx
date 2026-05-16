@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { X } from 'lucide-react';
 import styles from './Modal.module.scss';
 
 interface ModalProps {
@@ -41,7 +42,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             <div className={styles.header}>
               <h2 className={styles.title}>{title}</h2>
               <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
-                ✕
+                <X size={16} />
               </button>
             </div>
             <div className={styles.body}>{children}</div>

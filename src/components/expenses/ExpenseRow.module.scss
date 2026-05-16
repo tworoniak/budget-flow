@@ -107,8 +107,10 @@
 }
 
 .actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: $text-muted;
-  font-size: $text-sm;
   padding: $space-1 $space-2;
   border-radius: $radius-sm;
   transition: color $transition-fast, background-color $transition-fast;

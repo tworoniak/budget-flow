@@ -28,6 +28,9 @@
 }
 
 .addBtn {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
   padding: $space-2 $space-4;
   background-color: $accent;
   color: #fff;

@@ -1,35 +1,46 @@
 import { NavLink } from 'react-router-dom';
+import type { LucideIcon } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Receipt,
+  Target,
+  BarChart2,
+  DollarSign,
+  RefreshCw,
+  Tag,
+  Settings,
+} from 'lucide-react';
 import styles from './Sidebar.module.scss';
 
-const PRIMARY_NAV = [
-  { to: '/', label: 'Dashboard', icon: '⊞' },
-  { to: '/expenses', label: 'Expenses', icon: '↕' },
-  { to: '/budget', label: 'Budgets', icon: '◎' },
+const PRIMARY_NAV: { to: string; label: string; icon: LucideIcon }[] = [
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/expenses', label: 'Expenses', icon: Receipt },
+  { to: '/budget', label: 'Budgets', icon: Target },
 ];
 
-const SECONDARY_NAV = [
-  { to: '/analytics', label: 'Analytics', icon: '▲', disabled: true },
-  { to: '/income', label: 'Income', icon: '＋', disabled: true },
-  { to: '/recurring', label: 'Recurring', icon: '↻', disabled: true },
+const SECONDARY_NAV: { to: string; label: string; icon: LucideIcon; disabled: true }[] = [
+  { to: '/analytics', label: 'Analytics', icon: BarChart2, disabled: true },
+  { to: '/income', label: 'Income', icon: DollarSign, disabled: true },
+  { to: '/recurring', label: 'Recurring', icon: RefreshCw, disabled: true },
 ];
 
-const BOTTOM_NAV = [
-  { to: '/categories', label: 'Categories', icon: '⊟', disabled: true },
-  { to: '/settings', label: 'Settings', icon: '⚙', disabled: true },
+const BOTTOM_NAV: { to: string; label: string; icon: LucideIcon; disabled: true }[] = [
+  { to: '/categories', label: 'Categories', icon: Tag, disabled: true },
+  { to: '/settings', label: 'Settings', icon: Settings, disabled: true },
 ];
 
 interface NavItemProps {
   to: string;
   label: string;
-  icon: string;
+  icon: LucideIcon;
   disabled?: boolean;
 }
 
-function NavItem({ to, label, icon, disabled }: NavItemProps) {
+function NavItem({ to, label, icon: Icon, disabled }: NavItemProps) {
   if (disabled) {
     return (
       <span className={`${styles.navItem} ${styles.disabled}`}>
-        <span className={styles.navIcon}>{icon}</span>
+        <Icon size={15} className={styles.navIcon} />
         <span className={styles.navLabel}>{label}</span>
       </span>
     );
@@ -42,7 +53,7 @@ function NavItem({ to, label, icon, disabled }: NavItemProps) {
         `${styles.navItem} ${isActive ? styles.active : ''}`
       }
     >
-      <span className={styles.navIcon}>{icon}</span>
+      <Icon size={15} className={styles.navIcon} />
       <span className={styles.navLabel}>{label}</span>
     </NavLink>
   );

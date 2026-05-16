@@ -1,0 +1,95 @@
+@use '../../styles/variables' as *;
+
+.panel {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.viewAll {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $accent;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $accent-hover;
+  }
+}
+
+.empty {
+  font-size: $text-sm;
+  color: $text-muted;
+  text-align: center;
+  padding: $space-6 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.badge {
+  width: 30px;
+  height: 30px;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category {
+  font-size: $text-xs;
+}
+
+.amount {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-secondary;
+  white-space: nowrap;
+  flex-shrink: 0;
+}

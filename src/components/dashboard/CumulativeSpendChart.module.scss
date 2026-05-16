@@ -1,0 +1,75 @@
+@use '../../styles/variables' as *;
+
+.wrapper {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.title {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.total {
+  font-size: $text-xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  letter-spacing: -0.02em;
+  margin-top: $space-1;
+}
+
+.tabs {
+  display: flex;
+  gap: $space-1;
+  background-color: $bg-secondary;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  padding: 3px;
+}
+
+.tab {
+  padding: $space-1 $space-3;
+  border-radius: $radius-sm;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover:not(.active) {
+    color: $text-primary;
+  }
+
+  &.active {
+    background-color: $bg-card;
+    color: $text-primary;
+    box-shadow: $shadow-sm;
+  }
+}
+
+.chart {
+  margin-left: -$space-3;
+}
+
+.tooltip {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  box-shadow: $shadow-md;
+}

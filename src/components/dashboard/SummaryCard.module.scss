@@ -1,0 +1,62 @@
+@use '../../styles/variables' as *;
+
+.card {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-4 $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  overflow: hidden;
+}
+
+.accent {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.05));
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sub {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.positive {
+  color: $success;
+}
+
+.negative {
+  color: $danger;
+}
+
+.value {
+  font-size: $text-2xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.sparkline {
+  margin-top: $space-1;
+  margin-left: -$space-5;
+  margin-right: -$space-5;
+  margin-bottom: -$space-4;
+}

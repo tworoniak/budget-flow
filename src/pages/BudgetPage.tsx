@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Plus } from 'lucide-react';
 import { useBudgetStore } from '../app/store/useBudgetStore';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { calcTotalBudgeted, calcTotalSpent, calcSavingsRate } from '../utils/budgetCalculations';
@@ -56,7 +57,7 @@ export default function BudgetPage() {
           </p>
         </div>
         <button className={styles.addBtn} onClick={openAdd}>
-          + Add category
+          <Plus size={14} /> Add category
         </button>
       </div>
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Upload, Plus } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import Modal from '../components/ui/Modal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
@@ -67,8 +68,8 @@ export default function ExpensesPage() {
           </p>
         </div>
         <div className={styles.headerActions}>
-          <button className={styles.exportBtn}>↑ Export</button>
-          <button className={styles.addBtn} onClick={openAdd}>+ New expense</button>
+          <button className={styles.exportBtn}><Upload size={14} /> Export</button>
+          <button className={styles.addBtn} onClick={openAdd}><Plus size={14} /> New expense</button>
         </div>
       </div>
 

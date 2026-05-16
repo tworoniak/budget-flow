@@ -1,3 +1,4 @@
+import { Pencil, X } from 'lucide-react';
 import type { BudgetCategory } from '../../types';
 import styles from './BudgetCategoryCard.module.scss';
 
@@ -65,14 +66,14 @@ export default function BudgetCategoryCard({
               onClick={() => onEdit(category)}
               aria-label="Edit budget category"
             >
-              ✎
+              <Pencil size={13} />
             </button>
             <button
               className={`${styles.actionBtn} ${styles.deleteBtn}`}
               onClick={() => onDelete(category.id)}
               aria-label="Delete budget category"
             >
-              ✕
+              <X size={13} />
             </button>
           </div>
         </div>
