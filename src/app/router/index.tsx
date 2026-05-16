@@ -3,6 +3,7 @@ import AppLayout from '../../layouts/AppLayout';
 import DashboardPage from '../../pages/DashboardPage';
 import ExpensesPage from '../../pages/ExpensesPage';
 import BudgetPage from '../../pages/BudgetPage';
+import RecurringPage from '../../pages/RecurringPage';
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ export const router = createBrowserRouter([
       { index: true, element: <DashboardPage /> },
       { path: 'expenses', element: <ExpensesPage /> },
       { path: 'budget', element: <BudgetPage /> },
+      { path: 'recurring', element: <RecurringPage /> },
     ],
   },
 ]);

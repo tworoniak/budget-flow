@@ -1,0 +1,166 @@
+@use '../../styles/variables' as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $bg-hover;
+
+    .actions {
+      opacity: 1;
+    }
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+.iconBadge {
+  width: 34px;
+  height: 34px;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $text-xs;
+  font-weight: $font-bold;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.frequency {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $accent;
+  background-color: $accent-subtle;
+  padding: 1px $space-2;
+  border-radius: 999px;
+}
+
+.lastDate {
+  font-size: $text-xs;
+  color: $text-muted;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-shrink: 0;
+}
+
+.amount {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+  text-align: right;
+}
+
+.period {
+  font-size: $text-xs;
+  font-weight: $font-normal;
+  color: $text-muted;
+}
+
+.actions {
+  display: flex;
+  gap: $space-1;
+  opacity: 0;
+  transition: opacity $transition-fast;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  padding: $space-1 $space-2;
+  border-radius: $radius-sm;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-primary;
+  }
+}
+
+.stopBtn {
+  &:hover {
+    color: $danger;
+    background-color: $danger-subtle;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-12 $space-6;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: $text-muted;
+  opacity: 0.4;
+  margin-bottom: $space-2;
+}
+
+.emptyTitle {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+}
+
+.emptySub {
+  font-size: $text-xs;
+  color: $text-muted;
+  max-width: 280px;
+}
