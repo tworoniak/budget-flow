@@ -1,0 +1,32 @@
+@use '../../styles/variables' as *;
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+  background-color: $bg-secondary;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-1;
+  width: fit-content;
+}
+
+.tab {
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover:not(.active) {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+
+  &.active {
+    background-color: $bg-card;
+    color: $text-primary;
+    box-shadow: $shadow-sm;
+  }
+}

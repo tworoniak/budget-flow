@@ -3,8 +3,8 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: $space-6;
-  max-width: 860px;
+  gap: $space-5;
+  height: 100%;
 }
 
 .header {
@@ -27,24 +27,57 @@
   margin-top: $space-1;
 }
 
-.filtersRow {
+.headerActions {
   display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-shrink: 0;
+}
+
+.exportBtn {
+  padding: $space-2 $space-4;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  background-color: transparent;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
 }
 
 .addBtn {
-  padding: $space-2 $space-5;
+  padding: $space-2 $space-4;
   background-color: $accent;
   color: #fff;
   font-size: $text-sm;
   font-weight: $font-medium;
   border-radius: $radius-md;
   white-space: nowrap;
-  flex-shrink: 0;
   transition: background-color $transition-fast;
 
   &:hover {
     background-color: $accent-hover;
   }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  flex-wrap: wrap;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: $space-5;
+  align-items: flex-start;
 }
 
 .listCard {
