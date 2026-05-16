@@ -9,6 +9,7 @@ import CumulativeSpendChart from '../components/dashboard/CumulativeSpendChart';
 import BudgetBreakdown from '../components/dashboard/BudgetBreakdown';
 import RecentTransactions from '../components/dashboard/RecentTransactions';
 import SpendingByCategory from '../components/dashboard/SpendingByCategory';
+import ForecastBadge from '../components/dashboard/ForecastBadge';
 import { useDashboardData } from '../hooks/useDashboardData';
 import styles from './DashboardPage.module.scss';
 
@@ -33,6 +34,10 @@ export default function DashboardPage() {
         <div>
           <h1 className={styles.greeting}>Hi Alex — here's your money this month</h1>
           <p className={styles.date}>{monthLabel} · {expenses.length} transactions</p>
+          <ForecastBadge
+            forecastedMonthlySpend={data.forecastedMonthlySpend}
+            income={data.income}
+          />
         </div>
         <div className={styles.heroActions}>
           <button className={styles.exportBtn} onClick={() => downloadCsv(expenses)}><Upload size={14} /> Export</button>
@@ -83,6 +88,7 @@ export default function DashboardPage() {
             thisMonthData={data.cumulativeByDay}
             lastMonthData={data.cumulativeLastMonth}
             budgetLimit={data.income}
+            forecastLine={data.forecastLine}
           />
         </div>
         <div className={styles.sideCol}>

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { useBudgetStore } from '../app/store/useBudgetStore';
 import { calcSpentByCategory, calcSavingsRate } from '../utils/budgetCalculations';
+import { calcDailyAverage, calcProjectedMonthly, buildForecastLine } from '../utils/forecasting';
 
 function startOfMonth(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), 1);
@@ -37,6 +38,7 @@ export function useDashboardData() {
     const topCategory = topCategoryEntry?.[0] ?? '—';
 
     // Cumulative spend by day for current month
+    const totalDaysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     const daysInMonth = now.getDate();
     const cumulativeByDay: { day: number; amount: number }[] = [];
     let running = 0;
@@ -52,6 +54,10 @@ export function useDashboardData() {
       running += dayTotal;
       cumulativeByDay.push({ day: d, amount: running });
     }
+
+    const dailyAverage = calcDailyAverage(totalSpent, daysInMonth);
+    const forecastedMonthlySpend = calcProjectedMonthly(dailyAverage, totalDaysInMonth);
+    const forecastLine = buildForecastLine(cumulativeByDay, totalDaysInMonth);
 
     // Last 7 days daily spend (for sparklines)
     const sparklineData: { day: number; amount: number }[] = [];
@@ -117,6 +123,10 @@ export function useDashboardData() {
       categories,
       spentByCategory,
       thisMonthExpenses,
+      dailyAverage,
+      forecastedMonthlySpend,
+      forecastLine,
+      totalDaysInMonth,
     };
   }, [expenses, categories, income]);
 }
