@@ -1,0 +1,77 @@
+@use '../../styles/variables' as *;
+
+.sidebar {
+  width: $sidebar-width;
+  min-height: 100svh;
+  background-color: $bg-secondary;
+  border-right: 1px solid $border-default;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding: $space-6 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: 0 $space-5 $space-6;
+  border-bottom: 1px solid $border-subtle;
+  margin-bottom: $space-4;
+}
+
+.logoIcon {
+  color: $accent;
+  font-size: $text-xl;
+  line-height: 1;
+}
+
+.logoText {
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  letter-spacing: -0.01em;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  padding: 0 $space-3;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+  color: $text-secondary;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+
+  &.active {
+    color: $text-primary;
+    background-color: $accent-subtle;
+
+    .navIcon {
+      color: $accent;
+    }
+  }
+}
+
+.navIcon {
+  font-size: $text-base;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.navLabel {
+  line-height: 1;
+}

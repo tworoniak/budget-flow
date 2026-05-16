@@ -1,0 +1,14 @@
+@use '../styles/variables' as *;
+
+.layout {
+  display: flex;
+  min-height: 100svh;
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: $space-8;
+  overflow-y: auto;
+}
