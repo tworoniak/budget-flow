@@ -18,10 +18,10 @@ const PRIMARY_NAV: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/budget', label: 'Budgets', icon: Target },
 ];
 
-const SECONDARY_NAV: { to: string; label: string; icon: LucideIcon; disabled: true }[] = [
+const SECONDARY_NAV: { to: string; label: string; icon: LucideIcon; disabled?: true }[] = [
   { to: '/analytics', label: 'Analytics', icon: BarChart2, disabled: true },
   { to: '/income', label: 'Income', icon: DollarSign, disabled: true },
-  { to: '/recurring', label: 'Recurring', icon: RefreshCw, disabled: true },
+  { to: '/recurring', label: 'Recurring', icon: RefreshCw },
 ];
 
 const BOTTOM_NAV: { to: string; label: string; icon: LucideIcon; disabled: true }[] = [
