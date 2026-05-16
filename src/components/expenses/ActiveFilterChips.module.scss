@@ -1,0 +1,42 @@
+@use '../../styles/variables' as *;
+
+.chips {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-2;
+  background-color: $accent-subtle;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 9999px;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $accent;
+  transition: background-color $transition-fast, border-color $transition-fast;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: rgba(99, 102, 241, 0.2);
+    border-color: $accent;
+  }
+}
+
+.clearAll {
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  color: $text-muted;
+  padding: $space-1 $space-2;
+  border-radius: 9999px;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+}

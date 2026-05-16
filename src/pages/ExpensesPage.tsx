@@ -7,6 +7,7 @@ import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import ExpenseFilters, { type FilterState } from '../components/expenses/ExpenseFilters';
 import ExpenseList from '../components/expenses/ExpenseList';
+import ActiveFilterChips from '../components/expenses/ActiveFilterChips';
 import ExpenseTabs, { type ExpenseTab } from '../components/expenses/ExpenseTabs';
 import SpendingPanel from '../components/expenses/SpendingPanel';
 import type { Expense } from '../types';
@@ -42,6 +43,10 @@ export default function ExpensesPage() {
     category: '',
     startDate: '',
     endDate: '',
+    minAmount: '',
+    maxAmount: '',
+    sortBy: 'date',
+    sortDir: 'desc',
   });
 
   const tabFiltered = useMemo(() => applyTabFilter(expenses, activeTab), [expenses, activeTab]);
@@ -87,6 +92,8 @@ export default function ExpensesPage() {
         <ExpenseTabs active={activeTab} onChange={setActiveTab} />
         <ExpenseFilters filters={filters} onChange={setFilters} />
       </div>
+
+      <ActiveFilterChips filters={filters} onChange={setFilters} />
 
       <div className={styles.body}>
         <div className={styles.listCard}>
