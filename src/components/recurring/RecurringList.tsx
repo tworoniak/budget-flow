@@ -1,6 +1,7 @@
 import { Pencil, StopCircle, RefreshCw } from 'lucide-react';
 import type { Expense } from '../../types';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
+import { parseLocalDate } from '../../utils/dateUtils';
 import styles from './RecurringList.module.scss';
 
 const CATEGORY_CONFIG: Record<string, { color: string; bg: string; letter: string }> = {
@@ -57,7 +58,7 @@ export default function RecurringList({ onEdit }: RecurringListProps) {
     <div className={styles.list}>
       {items.map((expense) => {
         const cfg = CATEGORY_CONFIG[expense.category] ?? CATEGORY_CONFIG['Other'];
-        const lastDate = new Date(expense.createdAt).toLocaleDateString('en-US', {
+        const lastDate = parseLocalDate(expense.createdAt).toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric',
           year: 'numeric',

@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { UploadCloud, AlertCircle, CheckCircle } from 'lucide-react';
 import { parseCsv, type ImportResult } from '../../utils/csvImport';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
+import { parseLocalDate } from '../../utils/dateUtils';
 import Modal from './Modal';
 import styles from './ImportModal.module.scss';
 
@@ -120,7 +121,7 @@ export default function ImportModal({ isOpen, onClose }: ImportModalProps) {
                           <td>{row.title}</td>
                           <td>${row.amount.toFixed(2)}</td>
                           <td>{row.category}</td>
-                          <td>{new Date(row.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                          <td>{parseLocalDate(row.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
                         </tr>
                       ))}
                     </tbody>

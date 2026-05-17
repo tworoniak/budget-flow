@@ -41,7 +41,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
       category: '',
       notes: '',
       recurring: false,
-      createdAt: new Date().toISOString().split('T')[0],
+      createdAt: new Date().toLocaleDateString('en-CA'),
     },
   });
 

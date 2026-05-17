@@ -1,0 +1,133 @@
+@use '../../styles/variables' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  z-index: 200;
+}
+
+.panel {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.searchIcon {
+  color: $text-muted;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: $text-sm;
+  color: $text-primary;
+  font-family: $font-sans;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.esc {
+  font-size: $text-xs;
+  color: $text-muted;
+  background-color: $bg-secondary;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 2px $space-2;
+  font-family: $font-mono;
+  flex-shrink: 0;
+}
+
+.results {
+  max-height: 340px;
+  overflow-y: auto;
+  padding: $space-2 0;
+}
+
+.groupLabel {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: $space-3 $space-5 $space-1;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+  padding: $space-2 $space-5;
+  font-size: $text-sm;
+  color: $text-secondary;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &.active {
+    background-color: $bg-hover;
+    color: $text-primary;
+
+    .itemIcon {
+      color: $accent;
+    }
+  }
+}
+
+.itemIcon {
+  flex-shrink: 0;
+  color: $text-muted;
+  transition: color $transition-fast;
+}
+
+.empty {
+  font-size: $text-sm;
+  color: $text-muted;
+  padding: $space-8 $space-5;
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+  padding: $space-3 $space-5;
+  border-top: 1px solid $border-subtle;
+  font-size: $text-xs;
+  color: $text-muted;
+
+  kbd {
+    font-family: $font-mono;
+    font-size: $text-xs;
+    background-color: $bg-secondary;
+    border: 1px solid $border-default;
+    border-radius: $radius-sm;
+    padding: 1px 4px;
+    color: $text-secondary;
+    margin-right: 3px;
+  }
+}
