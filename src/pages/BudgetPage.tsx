@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { useBudgetStore } from '../app/store/useBudgetStore';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { calcTotalBudgeted, calcTotalSpent, calcSavingsRate } from '../utils/budgetCalculations';
+import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
 import Modal from '../components/ui/Modal';
 import BudgetForm from '../components/budget/BudgetForm';
 import BudgetList from '../components/budget/BudgetList';
@@ -16,16 +17,17 @@ export default function BudgetPage() {
   const [editingCategory, setEditingCategory] = useState<BudgetCategory | undefined>();
   const [isEditingIncome, setIsEditingIncome] = useState(false);
   const [incomeInput, setIncomeInput] = useState(income.toString());
+  const setTopBarActions = useSetTopBarActions();
 
   const totalBudgeted = calcTotalBudgeted(categories);
   const totalSpent = calcTotalSpent(expenses);
   const unallocated = income - totalBudgeted;
   const savingsRate = calcSavingsRate(income, totalSpent);
 
-  const openAdd = () => {
+  const openAdd = useCallback(() => {
     setEditingCategory(undefined);
     setIsModalOpen(true);
-  };
+  }, []);
 
   const openEdit = (category: BudgetCategory) => {
     setEditingCategory(category);
@@ -45,20 +47,24 @@ export default function BudgetPage() {
     setIsEditingIncome(false);
   };
 
+  useEffect(() => {
+    setTopBarActions(
+      <button className={styles.addBtn} onClick={openAdd}>
+        <Plus size={14} /> Add category
+      </button>
+    );
+    return () => setTopBarActions(null);
+  }, [setTopBarActions, openAdd]);
+
   const usedCategoryNames = categories.map((c) => c.name);
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Budget</h1>
-          <p className={styles.subtitle}>
-            {categories.length} {categories.length === 1 ? 'category' : 'categories'} tracked
-          </p>
-        </div>
-        <button className={styles.addBtn} onClick={openAdd}>
-          <Plus size={14} /> Add category
-        </button>
+        <h1 className={styles.title}>Budget</h1>
+        <p className={styles.subtitle}>
+          {categories.length} {categories.length === 1 ? 'category' : 'categories'} tracked
+        </p>
       </div>
 
       <div className={styles.summaryRow}>

@@ -9,9 +9,8 @@
 
 .hero {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: $space-4;
+  flex-direction: column;
+  gap: $space-1;
 }
 
 .greeting {
@@ -24,16 +23,9 @@
 .date {
   font-size: $text-sm;
   color: $text-muted;
-  margin-top: $space-1;
 }
 
-.heroActions {
-  display: flex;
-  align-items: center;
-  gap: $space-3;
-  flex-shrink: 0;
-}
-
+// Shared button styles — used in TopBar action slot
 .exportBtn {
   display: flex;
   align-items: center;

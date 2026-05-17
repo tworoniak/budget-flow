@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Upload, Plus, Download } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { parseLocalDate } from '../utils/dateUtils';
 import { downloadCsv } from '../utils/csvExport';
+import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
 import Modal from '../components/ui/Modal';
 import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
@@ -50,12 +51,14 @@ export default function ExpensesPage() {
     sortDir: 'desc',
   });
 
+  const setTopBarActions = useSetTopBarActions();
+
   const tabFiltered = useMemo(() => applyTabFilter(expenses, activeTab), [expenses, activeTab]);
 
-  const openAdd = () => {
+  const openAdd = useCallback(() => {
     setEditingExpense(undefined);
     setIsModalOpen(true);
-  };
+  }, []);
 
   const openEdit = (expense: Expense) => {
     setEditingExpense(expense);
@@ -67,26 +70,33 @@ export default function ExpensesPage() {
     setEditingExpense(undefined);
   };
 
+  const handleImport = useCallback(() => setIsImportOpen(true), []);
+  const handleExport = useCallback(() => downloadCsv(expenses), [expenses]);
+
+  useEffect(() => {
+    setTopBarActions(
+      <>
+        <button className={styles.secondaryBtn} onClick={handleImport}>
+          <Download size={14} /> Import
+        </button>
+        <button className={styles.secondaryBtn} onClick={handleExport}>
+          <Upload size={14} /> Export
+        </button>
+        <button className={styles.primaryBtn} onClick={openAdd}>
+          <Plus size={14} /> New expense
+        </button>
+      </>
+    );
+    return () => setTopBarActions(null);
+  }, [setTopBarActions, handleImport, handleExport, openAdd]);
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Expenses</h1>
-          <p className={styles.subtitle}>
-            {expenses.length} {expenses.length === 1 ? 'transaction' : 'transactions'} total
-          </p>
-        </div>
-        <div className={styles.headerActions}>
-          <button className={styles.importBtn} onClick={() => setIsImportOpen(true)}>
-            <Download size={14} /> Import
-          </button>
-          <button className={styles.exportBtn} onClick={() => downloadCsv(expenses)}>
-            <Upload size={14} /> Export
-          </button>
-          <button className={styles.addBtn} onClick={openAdd}>
-            <Plus size={14} /> New expense
-          </button>
-        </div>
+        <h1 className={styles.title}>Expenses</h1>
+        <p className={styles.subtitle}>
+          {expenses.length} {expenses.length === 1 ? 'transaction' : 'transactions'} total
+        </p>
       </div>
 
       <div className={styles.toolbar}>

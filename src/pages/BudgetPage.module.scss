@@ -9,9 +9,7 @@
 
 .header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: $space-4;
+  flex-direction: column;
 }
 
 .title {
