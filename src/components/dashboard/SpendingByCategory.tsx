@@ -11,14 +11,14 @@ interface SpendingByCategoryProps {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  Food:          '#f59e0b',
-  Transport:     '#3b82f6',
-  Housing:       '#8b5cf6',
+  Food: '#f59e0b',
+  Transport: '#3b82f6',
+  Housing: '#8b5cf6',
   Entertainment: '#ec4899',
-  Healthcare:    '#22c55e',
-  Shopping:      '#f97316',
-  Utilities:     '#06b6d4',
-  Other:         '#6b7280',
+  Healthcare: '#22c55e',
+  Shopping: '#f97316',
+  Utilities: '#06b6d4',
+  Other: '#6b7280',
 };
 
 const CustomTooltip = ({
@@ -32,7 +32,9 @@ const CustomTooltip = ({
     return (
       <div className={styles.tooltip}>
         <span className={styles.tooltipName}>{payload[0].name}</span>
-        <span className={styles.tooltipValue}>${payload[0].value.toFixed(2)}</span>
+        <span className={styles.tooltipValue}>
+          ${payload[0].value.toFixed(2)}
+        </span>
       </div>
     );
   }
@@ -58,8 +60,7 @@ export default function SpendingByCategory({ data }: SpendingByCategoryProps) {
                 cy={80}
                 innerRadius={48}
                 outerRadius={72}
-                paddingAngle={2}
-                dataKey="value"
+                dataKey='value'
                 isAnimationActive={false}
               >
                 {data.map((entry) => (
@@ -75,11 +76,15 @@ export default function SpendingByCategory({ data }: SpendingByCategoryProps) {
 
           <div className={styles.legend}>
             {data.map((entry) => {
-              const pct = total > 0 ? ((entry.value / total) * 100).toFixed(1) : '0';
+              const pct =
+                total > 0 ? ((entry.value / total) * 100).toFixed(1) : '0';
               const color = CATEGORY_COLORS[entry.name] ?? '#6b7280';
               return (
                 <div key={entry.name} className={styles.legendRow}>
-                  <span className={styles.legendDot} style={{ backgroundColor: color }} />
+                  <span
+                    className={styles.legendDot}
+                    style={{ backgroundColor: color }}
+                  />
                   <span className={styles.legendName}>{entry.name}</span>
                   <span className={styles.legendPct}>{pct}%</span>
                 </div>

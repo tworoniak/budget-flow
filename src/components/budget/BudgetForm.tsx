@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'sonner';
 import { useBudgetStore } from '../../app/store/useBudgetStore';
 import { CATEGORIES } from '../../constants/categories';
 import type { BudgetCategory } from '../../types';
@@ -43,8 +44,10 @@ export default function BudgetForm({ category, usedCategoryNames, onClose }: Bud
   const onSubmit = (data: BudgetFormValues) => {
     if (isEdit) {
       updateCategory(category.id, { name: data.name, limit: data.limit });
+      toast.success('Budget category updated');
     } else {
       addCategory({ id: uuidv4(), name: data.name, limit: data.limit });
+      toast.success('Budget category added');
     }
     onClose();
   };

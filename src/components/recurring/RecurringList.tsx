@@ -1,19 +1,10 @@
 import { Pencil, StopCircle, RefreshCw } from 'lucide-react';
+import { toast } from 'sonner';
 import type { Expense } from '../../types';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
 import { parseLocalDate } from '../../utils/dateUtils';
+import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './RecurringList.module.scss';
-
-const CATEGORY_CONFIG: Record<string, { color: string; bg: string; letter: string }> = {
-  Food:          { color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  letter: 'F' },
-  Transport:     { color: '#3b82f6', bg: 'rgba(59,130,246,0.12)',  letter: 'T' },
-  Housing:       { color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)',  letter: 'H' },
-  Entertainment: { color: '#ec4899', bg: 'rgba(236,72,153,0.12)',  letter: 'E' },
-  Healthcare:    { color: '#22c55e', bg: 'rgba(34,197,94,0.12)',   letter: 'HC' },
-  Shopping:      { color: '#f97316', bg: 'rgba(249,115,22,0.12)',  letter: 'S' },
-  Utilities:     { color: '#06b6d4', bg: 'rgba(6,182,212,0.12)',   letter: 'U' },
-  Other:         { color: '#6b7280', bg: 'rgba(107,114,128,0.12)', letter: 'O' },
-};
 
 interface RecurringListProps {
   onEdit: (expense: Expense) => void;
@@ -48,16 +39,17 @@ export default function RecurringList({ onEdit }: RecurringListProps) {
   }
 
   const stopRecurring = (expense: Expense) => {
-    // Remove recurring flag from ALL instances with same title+category
     expenses
       .filter((e) => e.recurring && e.title === expense.title && e.category === expense.category)
       .forEach((e) => updateExpense(e.id, { recurring: false }));
+    toast.success(`"${expense.title}" set to non-recurring`);
   };
 
   return (
     <div className={styles.list}>
       {items.map((expense) => {
         const cfg = CATEGORY_CONFIG[expense.category] ?? CATEGORY_CONFIG['Other'];
+        const Icon = cfg.icon;
         const lastDate = parseLocalDate(expense.createdAt).toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric',
@@ -71,7 +63,7 @@ export default function RecurringList({ onEdit }: RecurringListProps) {
                 className={styles.iconBadge}
                 style={{ backgroundColor: cfg.bg, color: cfg.color }}
               >
-                {cfg.letter}
+                <Icon size={16} />
               </div>
               <div className={styles.info}>
                 <span className={styles.title}>{expense.title}</span>

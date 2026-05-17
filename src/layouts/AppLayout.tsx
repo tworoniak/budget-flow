@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Toaster } from 'sonner';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import BottomTabBar from '../components/layout/BottomTabBar';
@@ -57,6 +58,7 @@ export default function AppLayout() {
         <Drawer isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense">
           <ExpenseForm onClose={() => setIsAddExpenseOpen(false)} />
         </Drawer>
+        <Toaster theme="dark" position="top-right" richColors />
       </div>
     </TopBarActionsContext.Provider>
     </MobileMoreActionsContext.Provider>

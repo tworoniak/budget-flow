@@ -3,12 +3,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  UtensilsCrossed, Car, Home, Music, Heart, ShoppingBag, Zap, Tag, X,
-} from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { X } from 'lucide-react';
+import { toast } from 'sonner';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
 import type { Expense } from '../../types';
+import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './ExpenseForm.module.scss';
 
 const expenseSchema = z.object({
@@ -21,23 +20,6 @@ const expenseSchema = z.object({
 });
 
 type ExpenseFormData = z.infer<typeof expenseSchema>;
-
-interface CategoryConfig {
-  icon: LucideIcon;
-  color: string;
-  bg: string;
-}
-
-const CATEGORY_ICONS: Record<string, CategoryConfig> = {
-  Food:          { icon: UtensilsCrossed, color: '#f59e0b', bg: 'rgba(245,158,11,0.15)' },
-  Transport:     { icon: Car,             color: '#3b82f6', bg: 'rgba(59,130,246,0.15)' },
-  Housing:       { icon: Home,            color: '#8b5cf6', bg: 'rgba(139,92,246,0.15)' },
-  Entertainment: { icon: Music,           color: '#ec4899', bg: 'rgba(236,72,153,0.15)' },
-  Healthcare:    { icon: Heart,           color: '#22c55e', bg: 'rgba(34,197,94,0.15)'  },
-  Shopping:      { icon: ShoppingBag,     color: '#f97316', bg: 'rgba(249,115,22,0.15)' },
-  Utilities:     { icon: Zap,             color: '#06b6d4', bg: 'rgba(6,182,212,0.15)'  },
-  Other:         { icon: Tag,             color: '#6b7280', bg: 'rgba(107,114,128,0.15)'},
-};
 
 const CATEGORY_ORDER = ['Food', 'Transport', 'Housing', 'Entertainment', 'Healthcare', 'Shopping', 'Utilities', 'Other'];
 
@@ -95,8 +77,10 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
     const payload = { ...data, tags: tags.length > 0 ? tags : undefined };
     if (isEditing) {
       updateExpense(expense.id, payload);
+      toast.success('Expense updated');
     } else {
       addExpense({ id: uuidv4(), ...payload });
+      toast.success('Expense added');
     }
 
     if (saveAndNewRef.current) {
@@ -172,7 +156,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
           render={({ field }) => (
             <div className={`${styles.categoryGrid} ${errors.category ? styles.categoryGridError : ''}`}>
               {CATEGORY_ORDER.map((cat) => {
-                const cfg = CATEGORY_ICONS[cat];
+                const cfg = CATEGORY_CONFIG[cat];
                 const Icon = cfg.icon;
                 const isSelected = field.value === cat;
                 return (
