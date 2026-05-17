@@ -1,21 +1,11 @@
 import type { BudgetCategory } from '../../types';
+import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './BudgetBreakdown.module.scss';
 
 interface BudgetBreakdownProps {
   categories: BudgetCategory[];
   spentByCategory: Record<string, number>;
 }
-
-const CATEGORY_COLORS: Record<string, string> = {
-  Food:          '#f59e0b',
-  Transport:     '#3b82f6',
-  Housing:       '#8b5cf6',
-  Entertainment: '#ec4899',
-  Healthcare:    '#22c55e',
-  Shopping:      '#f97316',
-  Utilities:     '#06b6d4',
-  Other:         '#6b7280',
-};
 
 export default function BudgetBreakdown({ categories, spentByCategory }: BudgetBreakdownProps) {
   return (
@@ -30,7 +20,7 @@ export default function BudgetBreakdown({ categories, spentByCategory }: BudgetB
             const spent = spentByCategory[cat.name] ?? 0;
             const pct = cat.limit > 0 ? Math.min((spent / cat.limit) * 100, 100) : 0;
             const isOver = spent > cat.limit;
-            const color = CATEGORY_COLORS[cat.name] ?? '#6b7280';
+            const color = CATEGORY_CONFIG[cat.name]?.color ?? '#6b7280';
 
             return (
               <div key={cat.id} className={styles.row}>

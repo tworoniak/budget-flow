@@ -2,22 +2,12 @@ import { useMemo } from 'react';
 import type { Expense } from '../../types';
 import { useBudgetStore } from '../../app/store/useBudgetStore';
 import { parseLocalDate } from '../../utils/dateUtils';
+import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './SpendingPanel.module.scss';
 
 interface SpendingPanelProps {
   expenses: Expense[];
 }
-
-const CATEGORY_COLORS: Record<string, string> = {
-  Food:          '#f59e0b',
-  Transport:     '#3b82f6',
-  Housing:       '#8b5cf6',
-  Entertainment: '#ec4899',
-  Healthcare:    '#22c55e',
-  Shopping:      '#f97316',
-  Utilities:     '#06b6d4',
-  Other:         '#6b7280',
-};
 
 function getCurrentMonthExpenses(expenses: Expense[]): Expense[] {
   const now = new Date();
@@ -101,7 +91,7 @@ export default function SpendingPanel({ expenses }: SpendingPanelProps) {
                 <div className={styles.catLeft}>
                   <span
                     className={styles.catDot}
-                    style={{ backgroundColor: CATEGORY_COLORS[cat] ?? '#6b7280' }}
+                    style={{ backgroundColor: CATEGORY_CONFIG[cat]?.color ?? '#6b7280' }}
                   />
                   <span className={styles.listTitle}>{cat}</span>
                 </div>

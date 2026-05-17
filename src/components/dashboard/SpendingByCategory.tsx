@@ -1,4 +1,5 @@
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './SpendingByCategory.module.scss';
 
 interface CategoryData {
@@ -9,17 +10,6 @@ interface CategoryData {
 interface SpendingByCategoryProps {
   data: CategoryData[];
 }
-
-const CATEGORY_COLORS: Record<string, string> = {
-  Food: '#f59e0b',
-  Transport: '#3b82f6',
-  Housing: '#8b5cf6',
-  Entertainment: '#ec4899',
-  Healthcare: '#22c55e',
-  Shopping: '#f97316',
-  Utilities: '#06b6d4',
-  Other: '#6b7280',
-};
 
 const CustomTooltip = ({
   active,
@@ -66,7 +56,7 @@ export default function SpendingByCategory({ data }: SpendingByCategoryProps) {
                 {data.map((entry) => (
                   <Cell
                     key={entry.name}
-                    fill={CATEGORY_COLORS[entry.name] ?? '#6b7280'}
+                    fill={CATEGORY_CONFIG[entry.name]?.color ?? '#6b7280'}
                   />
                 ))}
               </Pie>
@@ -78,7 +68,7 @@ export default function SpendingByCategory({ data }: SpendingByCategoryProps) {
             {data.map((entry) => {
               const pct =
                 total > 0 ? ((entry.value / total) * 100).toFixed(1) : '0';
-              const color = CATEGORY_COLORS[entry.name] ?? '#6b7280';
+              const color = CATEGORY_CONFIG[entry.name]?.color ?? '#6b7280';
               return (
                 <div key={entry.name} className={styles.legendRow}>
                   <span

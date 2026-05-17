@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import styles from './Modal.module.scss';
 
 interface ModalProps {
@@ -11,6 +12,18 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+
+  useFocusTrap(panelRef, isOpen);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -32,6 +45,10 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
           onClick={onClose}
         >
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
             className={styles.panel}
             initial={{ opacity: 0, y: 12, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -40,7 +57,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles.header}>
-              <h2 className={styles.title}>{title}</h2>
+              <h2 id={titleId} className={styles.title}>{title}</h2>
               <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
                 <X size={16} />
               </button>

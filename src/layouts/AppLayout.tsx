@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { Suspense, useState, type ReactNode } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
@@ -48,7 +48,9 @@ export default function AppLayout() {
                 transition={{ duration: 0.18, ease: 'easeOut' }}
                 style={{ height: '100%' }}
               >
-                <Outlet />
+                <Suspense fallback={null}>
+                  <Outlet />
+                </Suspense>
               </motion.div>
             </AnimatePresence>
           </div>
