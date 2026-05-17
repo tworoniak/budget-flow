@@ -81,7 +81,7 @@ export function useDashboardData() {
     const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0);
     const lastMonthExpenses = expenses.filter((e) => {
-      const t = new Date(e.createdAt);
+      const t = parseLocalDate(e.createdAt);
       return t >= lastMonthStart && t <= lastMonthEnd;
     });
     const daysInLastMonth = lastMonthEnd.getDate();

@@ -149,6 +149,7 @@ export default function DashboardPage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Add expense"
+        isNew
       >
         <ExpenseForm onClose={() => setIsModalOpen(false)} />
       </Drawer>
