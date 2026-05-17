@@ -49,13 +49,13 @@ export default function ExpensesEmptyState({ onAddExpense, onImport }: ExpensesE
             <span className={styles.tipDesc}>Coming in Phase 4 — just describe what you spent.</span>
           </div>
         </div>
-        <div className={styles.tip} onClick={() => navigate('/budget')} role="button" tabIndex={0}>
+        <button className={styles.tip} onClick={() => navigate('/budget')}>
           <span className={styles.tipIcon}><BarChart2 size={16} /></span>
           <div className={styles.tipText}>
             <span className={styles.tipTitle}>Set up budgets</span>
             <span className={styles.tipDesc}>Create category limits so you always know where you stand.</span>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   );

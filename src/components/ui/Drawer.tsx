@@ -1,7 +1,8 @@
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useIsMobile } from '../../hooks/useIsMobile';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import styles from './Drawer.module.scss';
 
 interface DrawerProps {
@@ -28,6 +29,17 @@ const bottomVariants = {
 export default function Drawer({ isOpen, onClose, title, children, isNew = false, variant = 'right' }: DrawerProps) {
   const isMobile = useIsMobile();
   const effectiveVariant = isMobile ? 'bottom' : variant;
+  const panelRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+
+  useFocusTrap(panelRef, isOpen);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -54,6 +66,10 @@ export default function Drawer({ isOpen, onClose, title, children, isNew = false
             onClick={onClose}
           />
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
             className={`${styles.panel} ${panelClass}`}
             variants={panelVariants}
             initial="initial"
@@ -64,7 +80,7 @@ export default function Drawer({ isOpen, onClose, title, children, isNew = false
             <div className={styles.header}>
               <div className={styles.headerLeft}>
                 {isNew && <span className={styles.headerLabel}>NEW</span>}
-                <h2 className={styles.title}>{title}</h2>
+                <h2 id={titleId} className={styles.title}>{title}</h2>
               </div>
               <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
                 <X size={16} />

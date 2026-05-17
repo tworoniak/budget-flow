@@ -1,17 +1,7 @@
 import { useDashboardData } from '../../hooks/useDashboardData';
 import { useBudgetStore } from '../../app/store/useBudgetStore';
+import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './MobileDashboard.module.scss';
-
-const CATEGORY_COLORS: Record<string, string> = {
-  Food:          '#f59e0b',
-  Transport:     '#3b82f6',
-  Housing:       '#8b5cf6',
-  Entertainment: '#ec4899',
-  Healthcare:    '#22c55e',
-  Shopping:      '#f97316',
-  Utilities:     '#06b6d4',
-  Other:         '#6b7280',
-};
 
 export default function MobileDashboard() {
   const data = useDashboardData();
@@ -70,7 +60,7 @@ export default function MobileDashboard() {
               const spent = data.spentByCategory[cat.name] ?? 0;
               const pct = cat.limit > 0 ? Math.min((spent / cat.limit) * 100, 100) : 0;
               const over = spent > cat.limit && cat.limit > 0;
-              const color = CATEGORY_COLORS[cat.name] ?? CATEGORY_COLORS['Other'];
+              const color = CATEGORY_CONFIG[cat.name]?.color ?? CATEGORY_CONFIG['Other']?.color ?? '#6b7280';
 
               return (
                 <div key={cat.id} className={styles.categoryRow}>
