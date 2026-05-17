@@ -30,7 +30,7 @@ function applyFilters(expenses: Expense[], filters: FilterState): Expense[] {
 
 function applySort(expenses: Expense[], sortBy: FilterState['sortBy'], sortDir: FilterState['sortDir']): Expense[] {
   return [...expenses].sort((a, b) => {
-    let cmp = 0;
+    let cmp: number;
     if (sortBy === 'amount') {
       cmp = a.amount - b.amount;
     } else if (sortBy === 'title') {
