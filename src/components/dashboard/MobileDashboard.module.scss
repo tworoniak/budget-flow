@@ -1,0 +1,171 @@
+@use '../../styles/variables' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.hero {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-2;
+}
+
+.heroLabel {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.heroAmount {
+  font-size: 2.5rem;
+  font-weight: $font-bold;
+  color: $text-primary;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.heroSub {
+  font-size: $text-sm;
+  color: $text-muted;
+}
+
+.heroBadge {
+  display: inline-block;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  padding: $space-1 $space-3;
+  border-radius: 999px;
+  margin-top: $space-1;
+}
+
+.badgeGood {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: $success;
+}
+
+.badgeBad {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: $danger;
+}
+
+.miniStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-3;
+}
+
+.miniCard {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-4 $space-3;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.miniLabel {
+  font-size: $text-xs;
+  color: $text-muted;
+  font-weight: $font-medium;
+}
+
+.miniValue {
+  font-size: $text-base;
+  font-weight: $font-bold;
+  color: $text-primary;
+  letter-spacing: -0.02em;
+}
+
+.positive {
+  color: $success;
+}
+
+.negative {
+  color: $danger;
+}
+
+.budgetSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.sectionTitle {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.categoryList {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.categoryRow {
+  padding: $space-3 $space-4;
+  border-bottom: 1px solid $border-subtle;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.categoryDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.categoryName {
+  flex: 1;
+  font-size: $text-sm;
+  color: $text-primary;
+  font-weight: $font-medium;
+}
+
+.categorySpent {
+  font-size: $text-xs;
+  color: $text-muted;
+
+  &.over {
+    color: $danger;
+  }
+}
+
+.progressTrack {
+  height: 4px;
+  background-color: $bg-hover;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}

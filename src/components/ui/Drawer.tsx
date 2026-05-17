@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import styles from './Drawer.module.scss';
 
 interface DrawerProps {
@@ -24,6 +25,9 @@ const bottomVariants = {
 };
 
 export default function Drawer({ isOpen, onClose, title, children, variant = 'right' }: DrawerProps) {
+  const isMobile = useIsMobile();
+  const effectiveVariant = isMobile ? 'bottom' : variant;
+
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -33,8 +37,8 @@ export default function Drawer({ isOpen, onClose, title, children, variant = 'ri
     return () => window.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
 
-  const panelVariants = variant === 'bottom' ? bottomVariants : rightVariants;
-  const panelClass = variant === 'bottom' ? styles.panelBottom : styles.panelRight;
+  const panelVariants = effectiveVariant === 'bottom' ? bottomVariants : rightVariants;
+  const panelClass = effectiveVariant === 'bottom' ? styles.panelBottom : styles.panelRight;
 
   return (
     <AnimatePresence>

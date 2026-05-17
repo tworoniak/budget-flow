@@ -3,14 +3,18 @@
 .sidebar {
   position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
   width: $sidebar-width;
-  height: 100svh;
   background-color: $bg-secondary;
   border-right: 1px solid $border-default;
   display: flex;
   flex-direction: column;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .logo {

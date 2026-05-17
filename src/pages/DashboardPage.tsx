@@ -3,10 +3,12 @@ import { Upload, Plus } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { downloadCsv } from '../utils/csvExport';
 import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
+import { useSetMobileMoreActions } from '../contexts/MobileMoreActionsContext';
 import Drawer from '../components/ui/Drawer';
 import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import DashboardEmptyState from '../components/dashboard/DashboardEmptyState';
+import MobileDashboard from '../components/dashboard/MobileDashboard';
 import SummaryCard from '../components/dashboard/SummaryCard';
 import CumulativeSpendChart from '../components/dashboard/CumulativeSpendChart';
 import BudgetBreakdown from '../components/dashboard/BudgetBreakdown';
@@ -38,6 +40,8 @@ export default function DashboardPage() {
   const handleAdd = useCallback(() => setIsModalOpen(true), []);
   const handleImport = useCallback(() => setIsImportOpen(true), []);
 
+  const setMobileMoreActions = useSetMobileMoreActions();
+
   useEffect(() => {
     setTopBarActions(
       <>
@@ -51,6 +55,13 @@ export default function DashboardPage() {
     );
     return () => setTopBarActions(null);
   }, [setTopBarActions, handleExport, handleAdd]);
+
+  useEffect(() => {
+    setMobileMoreActions([
+      { icon: <Upload size={18} />, label: 'Export CSV', onClick: handleExport },
+    ]);
+    return () => setMobileMoreActions([]);
+  }, [setMobileMoreActions, handleExport]);
 
   return (
     <div className={styles.page}>
@@ -69,6 +80,11 @@ export default function DashboardPage() {
         <DashboardEmptyState onAddExpense={handleAdd} onImport={handleImport} />
       ) : (
         <>
+          <div className={styles.mobileDashboard}>
+            <MobileDashboard />
+          </div>
+
+          <div className={styles.desktopDashboard}>
           <div className={styles.summaryCards}>
             <SummaryCard
               label="Total spent"
@@ -124,6 +140,7 @@ export default function DashboardPage() {
           <div className={styles.bottom}>
             <RecentTransactions transactions={data.recentTransactions} />
             <SpendingByCategory data={data.allSpentByCategory} />
+          </div>
           </div>
         </>
       )}

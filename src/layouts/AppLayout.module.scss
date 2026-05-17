@@ -17,3 +17,14 @@
   padding: $space-8;
   flex: 1;
 }
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+    padding-bottom: 64px;
+  }
+
+  .mainContent {
+    padding: $space-4;
+  }
+}
