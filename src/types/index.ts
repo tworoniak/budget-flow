@@ -5,6 +5,7 @@ export interface Expense {
   category: string;
   notes?: string;
   recurring?: boolean;
+  tags?: string[];
   createdAt: string;
 }
 

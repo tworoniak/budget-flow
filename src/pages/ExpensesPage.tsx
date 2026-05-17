@@ -4,7 +4,7 @@ import { useExpenseStore } from '../app/store/useExpenseStore';
 import { parseLocalDate } from '../utils/dateUtils';
 import { downloadCsv } from '../utils/csvExport';
 import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
-import Modal from '../components/ui/Modal';
+import Drawer from '../components/ui/Drawer';
 import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import ExpenseFilters, { type FilterState } from '../components/expenses/ExpenseFilters';
@@ -113,13 +113,13 @@ export default function ExpensesPage() {
         <SpendingPanel expenses={expenses} />
       </div>
 
-      <Modal
+      <Drawer
         isOpen={isModalOpen}
         onClose={closeModal}
         title={editingExpense ? 'Edit expense' : 'Add expense'}
       >
         <ExpenseForm expense={editingExpense} onClose={closeModal} />
-      </Modal>
+      </Drawer>
 
       <ImportModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} />
     </div>
