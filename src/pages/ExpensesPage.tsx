@@ -9,6 +9,7 @@ import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import ExpenseFilters, { type FilterState } from '../components/expenses/ExpenseFilters';
 import ExpenseList from '../components/expenses/ExpenseList';
+import ExpensesEmptyState from '../components/expenses/ExpensesEmptyState';
 import ActiveFilterChips from '../components/expenses/ActiveFilterChips';
 import ExpenseTabs, { type ExpenseTab } from '../components/expenses/ExpenseTabs';
 import SpendingPanel from '../components/expenses/SpendingPanel';
@@ -106,12 +107,16 @@ export default function ExpensesPage() {
 
       <ActiveFilterChips filters={filters} onChange={setFilters} />
 
-      <div className={styles.body}>
-        <div className={styles.listCard}>
-          <ExpenseList expenses={tabFiltered} filters={filters} onEdit={openEdit} />
+      {expenses.length === 0 ? (
+        <ExpensesEmptyState onAddExpense={openAdd} onImport={handleImport} />
+      ) : (
+        <div className={styles.body}>
+          <div className={styles.listCard}>
+            <ExpenseList expenses={tabFiltered} filters={filters} onEdit={openEdit} />
+          </div>
+          <SpendingPanel expenses={expenses} />
         </div>
-        <SpendingPanel expenses={expenses} />
-      </div>
+      )}
 
       <Drawer
         isOpen={isModalOpen}
