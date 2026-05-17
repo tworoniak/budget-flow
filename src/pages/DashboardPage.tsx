@@ -3,7 +3,7 @@ import { Upload, Plus } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { downloadCsv } from '../utils/csvExport';
 import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
-import Modal from '../components/ui/Modal';
+import Drawer from '../components/ui/Drawer';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import SummaryCard from '../components/dashboard/SummaryCard';
 import CumulativeSpendChart from '../components/dashboard/CumulativeSpendChart';
@@ -115,13 +115,13 @@ export default function DashboardPage() {
         <SpendingByCategory data={data.allSpentByCategory} />
       </div>
 
-      <Modal
+      <Drawer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Add expense"
       >
         <ExpenseForm onClose={() => setIsModalOpen(false)} />
-      </Modal>
+      </Drawer>
     </div>
   );
 }

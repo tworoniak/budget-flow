@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import CommandPalette from '../components/ui/CommandPalette';
-import Modal from '../components/ui/Modal';
+import Drawer from '../components/ui/Drawer';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import { TopBarActionsContext } from '../contexts/TopBarActionsContext';
 import { useRecurringCheck } from '../hooks/useRecurringCheck';
@@ -49,9 +49,9 @@ export default function AppLayout() {
           </div>
         </main>
         <CommandPalette isOpen={isPaletteOpen} onClose={closePalette} commands={commands} />
-        <Modal isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense">
+        <Drawer isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense">
           <ExpenseForm onClose={() => setIsAddExpenseOpen(false)} />
-        </Modal>
+        </Drawer>
       </div>
     </TopBarActionsContext.Provider>
   );
