@@ -12,21 +12,42 @@ import {
 } from 'lucide-react';
 import styles from './Sidebar.module.scss';
 
-const PRIMARY_NAV: { to: string; label: string; icon: LucideIcon }[] = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/expenses', label: 'Expenses', icon: Receipt },
-  { to: '/budget', label: 'Budgets', icon: Target },
-];
+interface NavItemDef {
+  to: string;
+  label: string;
+  icon: LucideIcon;
+  disabled?: true;
+}
 
-const SECONDARY_NAV: { to: string; label: string; icon: LucideIcon; disabled?: true }[] = [
-  { to: '/analytics', label: 'Analytics', icon: BarChart2, disabled: true },
-  { to: '/income', label: 'Income', icon: DollarSign, disabled: true },
-  { to: '/recurring', label: 'Recurring', icon: RefreshCw },
-];
+interface NavSection {
+  label: string;
+  items: NavItemDef[];
+}
 
-const BOTTOM_NAV: { to: string; label: string; icon: LucideIcon; disabled: true }[] = [
-  { to: '/categories', label: 'Categories', icon: Tag, disabled: true },
-  { to: '/settings', label: 'Settings', icon: Settings, disabled: true },
+const NAV_SECTIONS: NavSection[] = [
+  {
+    label: 'Main',
+    items: [
+      { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+      { to: '/expenses', label: 'Expenses', icon: Receipt },
+      { to: '/budget', label: 'Budgets', icon: Target },
+    ],
+  },
+  {
+    label: 'Insights',
+    items: [
+      { to: '/analytics', label: 'Analytics', icon: BarChart2, disabled: true },
+      { to: '/income', label: 'Income', icon: DollarSign, disabled: true },
+      { to: '/recurring', label: 'Recurring', icon: RefreshCw },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      { to: '/categories', label: 'Categories', icon: Tag, disabled: true },
+      { to: '/settings', label: 'Settings', icon: Settings, disabled: true },
+    ],
+  },
 ];
 
 interface NavItemProps {
@@ -68,28 +89,19 @@ export default function Sidebar() {
       </div>
 
       <nav className={styles.nav}>
-        <div className={styles.navSection}>
-          {PRIMARY_NAV.map((item) => (
-            <NavItem key={item.to} {...item} />
-          ))}
-        </div>
-
-        <div className={styles.navDivider} />
-
-        <div className={styles.navSection}>
-          {SECONDARY_NAV.map((item) => (
-            <NavItem key={item.to} {...item} />
-          ))}
-        </div>
+        {NAV_SECTIONS.map((section) => (
+          <div key={section.label} className={styles.section}>
+            <span className={styles.sectionLabel}>{section.label}</span>
+            <div className={styles.sectionItems}>
+              {section.items.map((item) => (
+                <NavItem key={item.to} {...item} />
+              ))}
+            </div>
+          </div>
+        ))}
       </nav>
 
       <div className={styles.bottomSection}>
-        <div className={styles.navSection}>
-          {BOTTOM_NAV.map((item) => (
-            <NavItem key={item.to} {...item} />
-          ))}
-        </div>
-
         <div className={styles.trackCard}>
           <div className={styles.trackDot} />
           <div className={styles.trackText}>

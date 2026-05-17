@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Upload, Plus } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { downloadCsv } from '../utils/csvExport';
+import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
 import Modal from '../components/ui/Modal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import SummaryCard from '../components/dashboard/SummaryCard';
@@ -22,29 +23,39 @@ export default function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { expenses } = useExpenseStore();
   const data = useDashboardData();
+  const setTopBarActions = useSetTopBarActions();
 
   const now = new Date();
   const monthLabel = `${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
 
   const remainingPositive = data.remainingBudget >= 0;
 
+  const handleExport = useCallback(() => downloadCsv(expenses), [expenses]);
+  const handleAdd = useCallback(() => setIsModalOpen(true), []);
+
+  useEffect(() => {
+    setTopBarActions(
+      <>
+        <button className={styles.exportBtn} onClick={handleExport}>
+          <Upload size={14} /> Export
+        </button>
+        <button className={styles.addBtn} onClick={handleAdd}>
+          <Plus size={14} /> Add expense
+        </button>
+      </>
+    );
+    return () => setTopBarActions(null);
+  }, [setTopBarActions, handleExport, handleAdd]);
+
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
-        <div>
-          <h1 className={styles.greeting}>Hi Alex — here's your money this month</h1>
-          <p className={styles.date}>{monthLabel} · {expenses.length} transactions</p>
-          <ForecastBadge
-            forecastedMonthlySpend={data.forecastedMonthlySpend}
-            income={data.income}
-          />
-        </div>
-        <div className={styles.heroActions}>
-          <button className={styles.exportBtn} onClick={() => downloadCsv(expenses)}><Upload size={14} /> Export</button>
-          <button className={styles.addBtn} onClick={() => setIsModalOpen(true)}>
-            <Plus size={14} /> Add expense
-          </button>
-        </div>
+        <h1 className={styles.greeting}>Hi Alex — here's your money this month</h1>
+        <p className={styles.date}>{monthLabel} · {expenses.length} transactions</p>
+        <ForecastBadge
+          forecastedMonthlySpend={data.forecastedMonthlySpend}
+          income={data.income}
+        />
       </div>
 
       <div className={styles.summaryCards}>

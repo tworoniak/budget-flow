@@ -1,0 +1,92 @@
+@use '../../styles/variables' as *;
+
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: 0 $space-8;
+  background-color: $bg-secondary;
+  border-bottom: 1px solid $border-subtle;
+  flex-shrink: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  flex-shrink: 0;
+}
+
+.workspace {
+  font-size: $text-sm;
+  color: $text-muted;
+}
+
+.sep {
+  font-size: $text-sm;
+  color: $text-muted;
+}
+
+.page {
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+}
+
+.searchBtn {
+  flex: 1;
+  max-width: 340px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 0 $space-3;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  cursor: text;
+  text-align: left;
+  transition: border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
+}
+
+.searchIcon {
+  color: $text-muted;
+  flex-shrink: 0;
+}
+
+.searchText {
+  flex: 1;
+  font-size: $text-sm;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kbdHint {
+  font-size: $text-xs;
+  color: $text-muted;
+  background-color: $bg-hover;
+  border: 1px solid $border-default;
+  border-radius: $radius-sm;
+  padding: 1px 5px;
+  font-family: $font-mono;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-shrink: 0;
+  margin-left: auto;
+}

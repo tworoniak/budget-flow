@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { RefreshCw } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import Modal from '../components/ui/Modal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
@@ -29,15 +28,10 @@ export default function RecurringPage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Recurring</h1>
-          <p className={styles.subtitle}>
-            {recurringCount} {recurringCount === 1 ? 'subscription' : 'subscriptions'} · auto-generated monthly
-          </p>
-        </div>
-        <div className={styles.headerIcon}>
-          <RefreshCw size={18} />
-        </div>
+        <h1 className={styles.title}>Recurring</h1>
+        <p className={styles.subtitle}>
+          {recurringCount} {recurringCount === 1 ? 'subscription' : 'subscriptions'} · auto-generated monthly
+        </p>
       </div>
 
       <div className={styles.card}>
