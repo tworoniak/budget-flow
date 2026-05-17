@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { Expense } from '../../types';
 import { useBudgetStore } from '../../app/store/useBudgetStore';
+import { parseLocalDate } from '../../utils/dateUtils';
 import styles from './SpendingPanel.module.scss';
 
 interface SpendingPanelProps {
@@ -23,7 +24,7 @@ function getCurrentMonthExpenses(expenses: Expense[]): Expense[] {
   const y = now.getFullYear();
   const m = now.getMonth();
   return expenses.filter((e) => {
-    const d = new Date(e.createdAt);
+    const d = parseLocalDate(e.createdAt);
     return d.getFullYear() === y && d.getMonth() === m;
   });
 }

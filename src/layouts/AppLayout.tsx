@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from '../components/layout/Sidebar';
+import CommandPalette from '../components/ui/CommandPalette';
+import Modal from '../components/ui/Modal';
+import ExpenseForm from '../components/expenses/ExpenseForm';
 import { useRecurringCheck } from '../hooks/useRecurringCheck';
+import { useCommandPalette } from '../hooks/useCommandPalette';
+import { useCommands } from '../app/commands';
 import styles from './AppLayout.module.scss';
 
 const pageVariants = {
@@ -13,6 +19,9 @@ const pageVariants = {
 export default function AppLayout() {
   useRecurringCheck();
   const location = useLocation();
+  const { isOpen: isPaletteOpen, close: closePalette } = useCommandPalette();
+  const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
+  const commands = useCommands(() => setIsAddExpenseOpen(true));
 
   return (
     <div className={styles.layout}>
@@ -32,6 +41,10 @@ export default function AppLayout() {
           </motion.div>
         </AnimatePresence>
       </main>
+      <CommandPalette isOpen={isPaletteOpen} onClose={closePalette} commands={commands} />
+      <Modal isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense">
+        <ExpenseForm onClose={() => setIsAddExpenseOpen(false)} />
+      </Modal>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Upload, Plus, Download } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
+import { parseLocalDate } from '../utils/dateUtils';
 import { downloadCsv } from '../utils/csvExport';
 import Modal from '../components/ui/Modal';
 import ImportModal from '../components/ui/ImportModal';
@@ -19,13 +20,13 @@ function applyTabFilter(expenses: Expense[], tab: ExpenseTab): Expense[] {
   if (tab === 'this-week') {
     const weekAgo = new Date(now);
     weekAgo.setDate(now.getDate() - 7);
-    return expenses.filter((e) => new Date(e.createdAt) >= weekAgo);
+    return expenses.filter((e) => parseLocalDate(e.createdAt) >= weekAgo);
   }
   if (tab === 'last-month') {
     const firstOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     const lastOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
     return expenses.filter((e) => {
-      const d = new Date(e.createdAt);
+      const d = parseLocalDate(e.createdAt);
       return d >= firstOfLastMonth && d <= lastOfLastMonth;
     });
   }

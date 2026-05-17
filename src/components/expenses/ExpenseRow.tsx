@@ -1,6 +1,7 @@
 import { Pencil, X } from 'lucide-react';
 import type { Expense } from '../../types';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
+import { parseLocalDate } from '../../utils/dateUtils';
 import styles from './ExpenseRow.module.scss';
 
 interface ExpenseRowProps {
@@ -23,7 +24,7 @@ export default function ExpenseRow({ expense, onEdit }: ExpenseRowProps) {
   const { deleteExpense } = useExpenseStore();
   const cfg = CATEGORY_CONFIG[expense.category] ?? CATEGORY_CONFIG['Other'];
 
-  const formattedDate = new Date(expense.createdAt).toLocaleDateString('en-US', {
+  const formattedDate = parseLocalDate(expense.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',

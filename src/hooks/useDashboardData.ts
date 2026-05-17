@@ -3,6 +3,7 @@ import { useExpenseStore } from '../app/store/useExpenseStore';
 import { useBudgetStore } from '../app/store/useBudgetStore';
 import { calcSpentByCategory, calcSavingsRate } from '../utils/budgetCalculations';
 import { calcDailyAverage, calcProjectedMonthly, buildForecastLine } from '../utils/forecasting';
+import { parseLocalDate } from '../utils/dateUtils';
 
 function startOfMonth(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), 1);
@@ -21,7 +22,7 @@ export function useDashboardData() {
     const monthStart = startOfMonth(now);
 
     const thisMonthExpenses = expenses.filter(
-      (e) => new Date(e.createdAt) >= monthStart
+      (e) => parseLocalDate(e.createdAt) >= monthStart
     );
 
     const totalSpent = thisMonthExpenses.reduce((sum, e) => sum + e.amount, 0);
@@ -47,7 +48,7 @@ export function useDashboardData() {
       const dayEnd = new Date(now.getFullYear(), now.getMonth(), d + 1);
       const dayTotal = thisMonthExpenses
         .filter((e) => {
-          const t = new Date(e.createdAt);
+          const t = parseLocalDate(e.createdAt);
           return t >= dayStart && t < dayEnd;
         })
         .reduce((sum, e) => sum + e.amount, 0);
@@ -69,7 +70,7 @@ export function useDashboardData() {
       dayEnd.setDate(dayStart.getDate() + 1);
       const dayTotal = expenses
         .filter((e) => {
-          const t = new Date(e.createdAt);
+          const t = parseLocalDate(e.createdAt);
           return t >= dayStart && t < dayEnd;
         })
         .reduce((sum, e) => sum + e.amount, 0);
@@ -91,7 +92,7 @@ export function useDashboardData() {
       const dayEnd = new Date(lastMonthStart.getFullYear(), lastMonthStart.getMonth(), d + 1);
       const dayTotal = lastMonthExpenses
         .filter((e) => {
-          const t = new Date(e.createdAt);
+          const t = parseLocalDate(e.createdAt);
           return t >= dayStart && t < dayEnd;
         })
         .reduce((sum, e) => sum + e.amount, 0);
@@ -106,7 +107,7 @@ export function useDashboardData() {
     })).filter((c) => c.value > 0);
 
     const recentTransactions = [...expenses]
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
       .slice(0, 5);
 
     return {
