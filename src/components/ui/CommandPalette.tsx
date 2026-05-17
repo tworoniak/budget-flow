@@ -25,22 +25,23 @@ function filterCommands(commands: Command[], query: string): Command[] {
 export default function CommandPalette({ isOpen, onClose, commands }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectedRef = useRef<HTMLButtonElement>(null);
+
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (isOpen) {
+      setQuery('');
+      setSelectedIndex(0);
+    }
+  }
 
   const filtered = filterCommands(commands, query);
 
   useEffect(() => {
-    if (isOpen) {
-      setQuery('');
-      setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 10);
-    }
+    if (isOpen) inputRef.current?.focus();
   }, [isOpen]);
-
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
 
   useEffect(() => {
     selectedRef.current?.scrollIntoView({ block: 'nearest' });
@@ -103,7 +104,7 @@ export default function CommandPalette({ isOpen, onClose, commands }: CommandPal
                 className={styles.input}
                 placeholder="Search commands..."
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0); }}
               />
               <kbd className={styles.esc}>Esc</kbd>
             </div>

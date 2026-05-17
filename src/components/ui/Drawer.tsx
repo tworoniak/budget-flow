@@ -9,6 +9,7 @@ interface DrawerProps {
   onClose: () => void;
   title: string;
   children: ReactNode;
+  isNew?: boolean;
   variant?: 'right' | 'bottom';
 }
 
@@ -24,7 +25,7 @@ const bottomVariants = {
   exit: { y: '100%' },
 };
 
-export default function Drawer({ isOpen, onClose, title, children, variant = 'right' }: DrawerProps) {
+export default function Drawer({ isOpen, onClose, title, children, isNew = false, variant = 'right' }: DrawerProps) {
   const isMobile = useIsMobile();
   const effectiveVariant = isMobile ? 'bottom' : variant;
 
@@ -62,7 +63,7 @@ export default function Drawer({ isOpen, onClose, title, children, variant = 'ri
           >
             <div className={styles.header}>
               <div className={styles.headerLeft}>
-                <span className={styles.headerLabel}>NEW</span>
+                {isNew && <span className={styles.headerLabel}>NEW</span>}
                 <h2 className={styles.title}>{title}</h2>
               </div>
               <button className={styles.closeBtn} onClick={onClose} aria-label="Close">

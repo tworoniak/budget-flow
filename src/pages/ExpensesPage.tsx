@@ -183,6 +183,7 @@ export default function ExpensesPage() {
         isOpen={isModalOpen}
         onClose={closeModal}
         title={editingExpense ? 'Edit expense' : 'Add expense'}
+        isNew={!editingExpense}
       >
         <ExpenseForm expense={editingExpense} onClose={closeModal} />
       </Drawer>

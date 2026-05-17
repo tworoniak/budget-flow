@@ -55,7 +55,7 @@ export default function AppLayout() {
         </main>
         <BottomTabBar onAddExpense={() => setIsAddExpenseOpen(true)} moreActions={mobileMoreActions} />
         <CommandPalette isOpen={isPaletteOpen} onClose={closePalette} commands={commands} />
-        <Drawer isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense">
+        <Drawer isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense" isNew>
           <ExpenseForm onClose={() => setIsAddExpenseOpen(false)} />
         </Drawer>
         <Toaster theme="dark" position="top-right" richColors />
