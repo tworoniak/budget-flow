@@ -1,0 +1,226 @@
+@use '../../styles/variables' as *;
+
+// ── Shared buttons ────────────────────────────────────────
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  background-color: $accent;
+  color: #fff;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  border: 1px solid $border-default;
+  color: $text-secondary;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+}
+
+.ghostBtn {
+  padding: $space-2 $space-3;
+  font-size: $text-sm;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $text-secondary;
+  }
+}
+
+// ── Minimal (skipped) state ───────────────────────────────
+.minimal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-12 $space-8;
+  gap: $space-4;
+  text-align: center;
+}
+
+.minimalIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: $accent-subtle;
+  color: $accent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minimalHeading {
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.minimalSub {
+  font-size: $text-sm;
+  color: $text-muted;
+  margin-top: -$space-2;
+}
+
+.minimalCtas {
+  display: flex;
+  gap: $space-3;
+  margin-top: $space-2;
+}
+
+// ── Full onboarding state ─────────────────────────────────
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.heading {
+  font-size: $text-2xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  font-size: $text-sm;
+  color: $text-muted;
+}
+
+.headlineCtas {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-top: $space-2;
+}
+
+// ── Two-panel row ─────────────────────────────────────────
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: $space-5;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.onboardPanel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-6;
+}
+
+.panelLabel {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $accent;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panelHeading {
+  font-size: $text-lg;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  line-height: 1.4;
+}
+
+.panelBody {
+  font-size: $text-sm;
+  color: $text-muted;
+  line-height: 1.6;
+}
+
+.panelCtas {
+  display: flex;
+  gap: $space-3;
+  flex-wrap: wrap;
+  margin-top: $space-2;
+}
+
+.checklistPanel {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  padding: $space-6;
+}
+
+// ── Three onboarding cards ────────────────────────────────
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-4;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-2;
+  padding: $space-5;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    border-color: $accent;
+    background-color: $bg-hover;
+  }
+}
+
+.cardIcon {
+  color: $accent;
+  margin-bottom: $space-1;
+}
+
+.cardTitle {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.cardDesc {
+  font-size: $text-xs;
+  color: $text-muted;
+  line-height: 1.5;
+}

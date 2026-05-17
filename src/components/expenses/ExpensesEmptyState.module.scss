@@ -1,0 +1,183 @@
+@use '../../styles/variables' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-12 $space-8;
+  gap: $space-5;
+  text-align: center;
+}
+
+// ── Receipt illustration ──────────────────────────────────
+.illustration {
+  position: relative;
+  width: 72px;
+  height: 80px;
+  margin-bottom: $space-2;
+}
+
+%receipt-base {
+  position: absolute;
+  border-radius: $radius-md;
+  border: 1.5px solid $border-default;
+}
+
+.receiptBack {
+  @extend %receipt-base;
+  width: 52px;
+  height: 64px;
+  background-color: $bg-card;
+  top: 12px;
+  left: 0;
+  transform: rotate(-8deg);
+}
+
+.receiptMid {
+  @extend %receipt-base;
+  width: 52px;
+  height: 64px;
+  background-color: $bg-hover;
+  top: 6px;
+  left: 10px;
+  transform: rotate(-2deg);
+}
+
+.receiptFront {
+  @extend %receipt-base;
+  width: 52px;
+  height: 64px;
+  background-color: $accent-subtle;
+  border-color: rgba(99, 102, 241, 0.3);
+  color: $accent;
+  top: 0;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ── Heading + sub ─────────────────────────────────────────
+.heading {
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  letter-spacing: -0.01em;
+}
+
+.sub {
+  font-size: $text-sm;
+  color: $text-muted;
+  max-width: 380px;
+  line-height: 1.6;
+  margin-top: -$space-2;
+}
+
+// ── CTAs ──────────────────────────────────────────────────
+.ctas {
+  display: flex;
+  gap: $space-3;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-5;
+  border-radius: $radius-md;
+  background-color: $accent;
+  color: #fff;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  border: 1px solid $border-default;
+  color: $text-secondary;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    background-color: $bg-hover;
+  }
+}
+
+// ── Tip cards ─────────────────────────────────────────────
+.tips {
+  display: flex;
+  gap: $space-4;
+  margin-top: $space-4;
+  width: 100%;
+  max-width: 640px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.tip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-4;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  text-align: center;
+  cursor: default;
+
+  &[role='button'] {
+    cursor: pointer;
+    transition: border-color $transition-fast, background-color $transition-fast;
+
+    &:hover {
+      border-color: $accent;
+      background-color: $bg-hover;
+    }
+  }
+}
+
+.tipIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-md;
+  background-color: $bg-hover;
+  color: $text-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tipText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tipTitle {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+}
+
+.tipDesc {
+  font-size: $text-xs;
+  color: $text-muted;
+  line-height: 1.5;
+}
