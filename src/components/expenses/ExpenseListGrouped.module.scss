@@ -1,0 +1,31 @@
+@use '../../styles/variables' as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateHeader {
+  position: sticky;
+  top: $header-height;
+  background-color: $bg-primary;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $text-muted;
+  letter-spacing: 0.06em;
+  padding: $space-2 $space-4;
+  border-bottom: 1px solid $border-subtle;
+  z-index: 1;
+}
+
+.empty {
+  padding: $space-8;
+  text-align: center;
+  color: $text-muted;
+  font-size: $text-sm;
+}

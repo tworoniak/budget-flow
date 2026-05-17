@@ -93,3 +93,53 @@
   gap: $space-4;
   align-items: flex-start;
 }
+
+.mobileDashboard {
+  display: none;
+}
+
+.desktopDashboard {
+  display: contents;
+}
+
+@media (max-width: 1024px) {
+  .summaryCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .sideCol {
+    display: none;
+  }
+
+  .bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1199px) {
+  .exportBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    display: none;
+  }
+
+  .mobileDashboard {
+    display: block;
+  }
+
+  .desktopDashboard {
+    display: none;
+  }
+
+  .addBtn {
+    display: none;
+  }
+}

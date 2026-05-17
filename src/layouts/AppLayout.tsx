@@ -3,10 +3,12 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
+import BottomTabBar from '../components/layout/BottomTabBar';
 import CommandPalette from '../components/ui/CommandPalette';
 import Drawer from '../components/ui/Drawer';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import { TopBarActionsContext } from '../contexts/TopBarActionsContext';
+import { MobileMoreActionsContext, type MobileMoreAction } from '../contexts/MobileMoreActionsContext';
 import { useRecurringCheck } from '../hooks/useRecurringCheck';
 import { useCommandPalette } from '../hooks/useCommandPalette';
 import { useCommands } from '../app/commands';
@@ -24,9 +26,11 @@ export default function AppLayout() {
   const { isOpen: isPaletteOpen, open: openPalette, close: closePalette } = useCommandPalette();
   const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
   const [topBarActions, setTopBarActions] = useState<ReactNode>(null);
+  const [mobileMoreActions, setMobileMoreActions] = useState<MobileMoreAction[]>([]);
   const commands = useCommands(() => setIsAddExpenseOpen(true));
 
   return (
+    <MobileMoreActionsContext.Provider value={setMobileMoreActions}>
     <TopBarActionsContext.Provider value={setTopBarActions}>
       <div className={styles.layout}>
         <Sidebar />
@@ -48,11 +52,13 @@ export default function AppLayout() {
             </AnimatePresence>
           </div>
         </main>
+        <BottomTabBar onAddExpense={() => setIsAddExpenseOpen(true)} moreActions={mobileMoreActions} />
         <CommandPalette isOpen={isPaletteOpen} onClose={closePalette} commands={commands} />
         <Drawer isOpen={isAddExpenseOpen} onClose={() => setIsAddExpenseOpen(false)} title="Add expense">
           <ExpenseForm onClose={() => setIsAddExpenseOpen(false)} />
         </Drawer>
       </div>
     </TopBarActionsContext.Provider>
+    </MobileMoreActionsContext.Provider>
   );
 }

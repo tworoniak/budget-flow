@@ -1,14 +1,17 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { Upload, Plus, Download } from 'lucide-react';
+import { Upload, Plus, Download, SlidersHorizontal } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { parseLocalDate } from '../utils/dateUtils';
 import { downloadCsv } from '../utils/csvExport';
 import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
+import { useSetMobileMoreActions } from '../contexts/MobileMoreActionsContext';
 import Drawer from '../components/ui/Drawer';
 import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import ExpenseFilters, { type FilterState } from '../components/expenses/ExpenseFilters';
 import ExpenseList from '../components/expenses/ExpenseList';
+import ExpenseListGrouped from '../components/expenses/ExpenseListGrouped';
+import MobileFilterSheet from '../components/expenses/MobileFilterSheet';
 import ExpensesEmptyState from '../components/expenses/ExpensesEmptyState';
 import ActiveFilterChips from '../components/expenses/ActiveFilterChips';
 import ExpenseTabs, { type ExpenseTab } from '../components/expenses/ExpenseTabs';
@@ -39,6 +42,7 @@ export default function ExpensesPage() {
   const { expenses } = useExpenseStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>();
   const [activeTab, setActiveTab] = useState<ExpenseTab>('all');
   const [filters, setFilters] = useState<FilterState>({
@@ -53,8 +57,20 @@ export default function ExpensesPage() {
   });
 
   const setTopBarActions = useSetTopBarActions();
+  const setMobileMoreActions = useSetMobileMoreActions();
 
   const tabFiltered = useMemo(() => applyTabFilter(expenses, activeTab), [expenses, activeTab]);
+
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (filters.category) count++;
+    if (filters.startDate) count++;
+    if (filters.endDate) count++;
+    if (filters.minAmount !== '') count++;
+    if (filters.maxAmount !== '') count++;
+    if (filters.sortBy !== 'date' || filters.sortDir !== 'desc') count++;
+    return count;
+  }, [filters]);
 
   const openAdd = useCallback(() => {
     setEditingExpense(undefined);
@@ -91,6 +107,14 @@ export default function ExpensesPage() {
     return () => setTopBarActions(null);
   }, [setTopBarActions, handleImport, handleExport, openAdd]);
 
+  useEffect(() => {
+    setMobileMoreActions([
+      { icon: <Download size={18} />, label: 'Import CSV', onClick: handleImport },
+      { icon: <Upload size={18} />, label: 'Export CSV', onClick: handleExport },
+    ]);
+    return () => setMobileMoreActions([]);
+  }, [setMobileMoreActions, handleImport, handleExport]);
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -102,7 +126,30 @@ export default function ExpensesPage() {
 
       <div className={styles.toolbar}>
         <ExpenseTabs active={activeTab} onChange={setActiveTab} />
-        <ExpenseFilters filters={filters} onChange={setFilters} />
+        <div className={styles.desktopFilters}>
+          <ExpenseFilters filters={filters} onChange={setFilters} />
+        </div>
+      </div>
+
+      {/* Mobile: compact search + filter icon row */}
+      <div className={styles.mobileFilterBar}>
+        <input
+          type="search"
+          className={styles.mobileSearch}
+          placeholder="Search expenses…"
+          value={filters.search}
+          onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+        />
+        <button
+          className={`${styles.filterIconBtn} ${activeFilterCount > 0 ? styles.filterActive : ''}`}
+          onClick={() => setIsFilterSheetOpen(true)}
+          aria-label="Open filters"
+        >
+          <SlidersHorizontal size={18} />
+          {activeFilterCount > 0 && (
+            <span className={styles.filterBadge}>{activeFilterCount}</span>
+          )}
+        </button>
       </div>
 
       <ActiveFilterChips filters={filters} onChange={setFilters} />
@@ -112,11 +159,25 @@ export default function ExpensesPage() {
       ) : (
         <div className={styles.body}>
           <div className={styles.listCard}>
-            <ExpenseList expenses={tabFiltered} filters={filters} onEdit={openEdit} />
+            <div className={styles.desktopList}>
+              <ExpenseList expenses={tabFiltered} filters={filters} onEdit={openEdit} />
+            </div>
+            <div className={styles.mobileList}>
+              <ExpenseListGrouped expenses={tabFiltered} onEdit={openEdit} />
+            </div>
           </div>
-          <SpendingPanel expenses={expenses} />
+          <div className={styles.desktopSidePanel}>
+            <SpendingPanel expenses={expenses} />
+          </div>
         </div>
       )}
+
+      <MobileFilterSheet
+        isOpen={isFilterSheetOpen}
+        onClose={() => setIsFilterSheetOpen(false)}
+        filters={filters}
+        onChange={setFilters}
+      />
 
       <Drawer
         isOpen={isModalOpen}

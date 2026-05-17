@@ -1,0 +1,121 @@
+@use '../../styles/variables' as *;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+%control {
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $text-sm;
+  padding: $space-3 $space-4;
+  height: 44px;
+  outline: none;
+  transition: border-color $transition-fast;
+  font-family: $font-sans;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.select {
+  @extend %control;
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a9a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $space-3 center;
+  padding-right: $space-8;
+  cursor: pointer;
+
+  option {
+    background-color: $bg-card;
+  }
+
+  &.grow {
+    flex: 1;
+    width: auto;
+  }
+}
+
+.dateInput {
+  @extend %control;
+  flex: 1;
+  color-scheme: dark;
+}
+
+.amountInput {
+  @extend %control;
+  flex: 1;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+.row {
+  display: flex;
+  gap: $space-3;
+  align-items: center;
+}
+
+.dirBtn {
+  height: 44px;
+  padding: 0 $space-4;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-secondary;
+  font-size: $text-sm;
+  font-family: $font-sans;
+  white-space: nowrap;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
+}
+
+.clearBtn {
+  width: 100%;
+  padding: $space-3;
+  background: none;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-muted;
+  font-size: $text-sm;
+  font-family: $font-sans;
+  transition: color $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+  }
+}

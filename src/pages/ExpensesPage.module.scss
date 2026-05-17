@@ -84,3 +84,117 @@
   overflow: hidden;
   min-height: 120px;
 }
+
+.mobileList {
+  display: none;
+}
+
+// Mobile filter bar — hidden on desktop
+.mobileFilterBar {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .desktopSidePanel {
+    display: none;
+  }
+
+  .desktopFilters {
+    display: none;
+  }
+
+  .mobileFilterBar {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  .secondaryBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktopList {
+    display: none;
+  }
+
+  .mobileList {
+    display: block;
+  }
+
+  .primaryBtn {
+    display: none;
+  }
+}
+
+// Shared styles (used at any breakpoint via mobileFilterBar)
+.mobileSearch {
+  flex: 1;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $text-sm;
+  padding: $space-2 $space-3;
+  height: 36px;
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.filterIconBtn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $bg-card;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-muted;
+  flex-shrink: 0;
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-muted;
+    background-color: $bg-hover;
+  }
+
+  &.filterActive {
+    color: $accent;
+    border-color: $accent;
+    background-color: $accent-subtle;
+  }
+}
+
+.filterBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 16px;
+  height: 16px;
+  background-color: $accent;
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: $font-bold;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  line-height: 1;
+}

@@ -90,3 +90,30 @@
   flex-shrink: 0;
   margin-left: auto;
 }
+
+@media (max-width: 1199px) {
+  .searchBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .topBar {
+    padding: 0 $space-4;
+  }
+
+  .workspace,
+  .sep {
+    display: none;
+  }
+
+  .page {
+    font-size: $text-base;
+    font-weight: $font-semibold;
+    color: $text-primary;
+  }
+
+  .actions {
+    gap: $space-2;
+  }
+}
