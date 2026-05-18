@@ -28,7 +28,7 @@ export function expensesToCsv(expenses: Expense[]): string {
 
 export function downloadCsv(expenses: Expense[], filename = 'budgetflow-expenses.csv'): void {
   const csv = expensesToCsv(expenses);
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const blob = new Blob(['﻿', csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

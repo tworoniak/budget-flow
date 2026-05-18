@@ -100,10 +100,10 @@ export function useDashboardData() {
       cumulativeLastMonth.push({ day: d, amount: runningLast });
     }
 
-    // Category breakdown for pie chart (all-time)
+    // Category breakdown for pie chart (this month)
     const allSpentByCategory = categories.map((cat) => ({
       name: cat.name,
-      value: calcSpentByCategory(expenses, cat.name),
+      value: calcSpentByCategory(thisMonthExpenses, cat.name),
     })).filter((c) => c.value > 0);
 
     const recentTransactions = [...expenses]

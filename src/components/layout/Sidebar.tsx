@@ -111,9 +111,9 @@ export default function Sidebar() {
         </div>
 
         <div className={styles.profileCard}>
-          <div className={styles.avatar}>A</div>
+          <div className={styles.avatar}>B</div>
           <div className={styles.profileInfo}>
-            <span className={styles.profileName}>Alex Dean</span>
+            <span className={styles.profileName}>BudgetFlow</span>
             <span className={styles.profileRole}>Personal</span>
           </div>
         </div>
