@@ -1,6 +1,9 @@
-import { useState } from 'react';
+'use client'
+
+import { useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
-import { NavLink, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { Home, Receipt, Plus, Wallet, MoreHorizontal, RefreshCcw, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { MobileMoreAction } from '../../contexts/MobileMoreActionsContext';
@@ -11,36 +14,47 @@ interface BottomTabBarProps {
   moreActions?: MobileMoreAction[];
 }
 
+const emptySubscribe = () => () => {};
+
 export default function BottomTabBar({ onAddExpense, moreActions = [] }: BottomTabBarProps) {
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  if (!mounted) return null;
 
   const handleRecurring = () => {
     setIsMoreOpen(false);
-    navigate('/recurring');
+    router.push('/recurring');
+  };
+
+  const tabClass = (to: string) => {
+    const isActive = to === '/' ? pathname === '/' : pathname === to;
+    return `${styles.tab} ${isActive ? styles.active : ''}`;
   };
 
   return createPortal(
     <>
       <nav className={styles.bar}>
-        <NavLink to="/" end className={({ isActive }) => `${styles.tab} ${isActive ? styles.active : ''}`}>
+        <Link href="/" className={tabClass('/')}>
           <Home size={20} />
           <span className={styles.label}>Home</span>
-        </NavLink>
+        </Link>
 
-        <NavLink to="/expenses" className={({ isActive }) => `${styles.tab} ${isActive ? styles.active : ''}`}>
+        <Link href="/expenses" className={tabClass('/expenses')}>
           <Receipt size={20} />
           <span className={styles.label}>Expenses</span>
-        </NavLink>
+        </Link>
 
         <button className={styles.fab} onClick={onAddExpense} aria-label="Add expense">
           <Plus size={22} />
         </button>
 
-        <NavLink to="/budget" className={({ isActive }) => `${styles.tab} ${isActive ? styles.active : ''}`}>
+        <Link href="/budget" className={tabClass('/budget')}>
           <Wallet size={20} />
           <span className={styles.label}>Budgets</span>
-        </NavLink>
+        </Link>
 
         <button
           className={`${styles.tab} ${isMoreOpen ? styles.active : ''}`}

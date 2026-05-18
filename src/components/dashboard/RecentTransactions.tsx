@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client'
+
+import Link from 'next/link';
 import type { Expense } from '../../types';
 import { CATEGORY_CONFIG } from '../../constants/categoryConfig';
 import styles from './RecentTransactions.module.scss';
@@ -12,7 +14,7 @@ export default function RecentTransactions({ transactions }: RecentTransactionsP
     <div className={styles.panel}>
       <div className={styles.header}>
         <h2 className={styles.title}>Recent transactions</h2>
-        <Link to="/expenses" className={styles.viewAll}>View all</Link>
+        <Link href="/expenses" className={styles.viewAll}>View all</Link>
       </div>
 
       {transactions.length === 0 ? (

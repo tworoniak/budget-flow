@@ -38,6 +38,6 @@ export const useExpenseStore = create<ExpenseStore>()(
       setLastRecurringCheck: (month) =>
         set({ lastRecurringCheck: month }),
     }),
-    { name: 'budgetflow-expenses' }
+    { name: 'budgetflow-expenses', skipHydration: true }
   )
 );

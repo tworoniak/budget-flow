@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+'use client'
+
+import { useRouter } from 'next/navigation';
 import { Upload, Plus, FileText, BarChart2, Wallet } from 'lucide-react';
 import { useBudgetStore } from '../../app/store/useBudgetStore';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
@@ -11,7 +13,7 @@ interface DashboardEmptyStateProps {
 }
 
 export default function DashboardEmptyState({ onAddExpense, onImport }: DashboardEmptyStateProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { income, categories, hasSkippedOnboarding, skipOnboarding } = useBudgetStore();
   const { expenses } = useExpenseStore();
 
@@ -92,7 +94,7 @@ export default function DashboardEmptyState({ onAddExpense, onImport }: Dashboar
           <span className={styles.cardTitle}>Add manually</span>
           <span className={styles.cardDesc}>Log an expense in seconds with the quick-add form.</span>
         </button>
-        <button className={styles.card} onClick={() => navigate('/budget')}>
+        <button className={styles.card} onClick={() => router.push('/budget')}>
           <BarChart2 size={20} className={styles.cardIcon} />
           <span className={styles.cardTitle}>Set up budgets</span>
           <span className={styles.cardDesc}>Create category limits to track where you're over or under.</span>

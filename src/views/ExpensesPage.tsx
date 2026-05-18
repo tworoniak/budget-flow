@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Upload, Plus, Download, SlidersHorizontal } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';

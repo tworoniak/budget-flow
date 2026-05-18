@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   Receipt,
@@ -23,7 +23,7 @@ export interface Command {
 }
 
 export function useCommands(onAddExpense: () => void): Command[] {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { expenses } = useExpenseStore();
 
   return useMemo(
@@ -34,7 +34,7 @@ export function useCommands(onAddExpense: () => void): Command[] {
         label: 'Go to Dashboard',
         icon: LayoutDashboard,
         keywords: ['home', 'overview', 'summary'],
-        action: () => navigate('/'),
+        action: () => router.push('/'),
       },
       {
         id: 'nav-expenses',
@@ -42,7 +42,7 @@ export function useCommands(onAddExpense: () => void): Command[] {
         label: 'Go to Expenses',
         icon: Receipt,
         keywords: ['expenses', 'transactions', 'spending'],
-        action: () => navigate('/expenses'),
+        action: () => router.push('/expenses'),
       },
       {
         id: 'nav-budget',
@@ -50,7 +50,7 @@ export function useCommands(onAddExpense: () => void): Command[] {
         label: 'Go to Budget',
         icon: Wallet,
         keywords: ['budget', 'categories', 'limits'],
-        action: () => navigate('/budget'),
+        action: () => router.push('/budget'),
       },
       {
         id: 'nav-recurring',
@@ -58,7 +58,7 @@ export function useCommands(onAddExpense: () => void): Command[] {
         label: 'Go to Recurring',
         icon: RefreshCw,
         keywords: ['recurring', 'subscriptions', 'monthly'],
-        action: () => navigate('/recurring'),
+        action: () => router.push('/recurring'),
       },
       {
         id: 'action-add',
@@ -82,10 +82,10 @@ export function useCommands(onAddExpense: () => void): Command[] {
         label: 'Clear all filters',
         icon: FilterX,
         keywords: ['clear', 'filters', 'reset', 'search'],
-        action: () => navigate('/expenses'),
+        action: () => router.push('/expenses'),
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [navigate, expenses]
+    [router, expenses]
   );
 }

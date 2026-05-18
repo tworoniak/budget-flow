@@ -1,5 +1,7 @@
-import { Suspense, useState, type ReactNode } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+'use client'
+
+import { Suspense, useState, useEffect, type ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 import Sidebar from '../components/layout/Sidebar';
@@ -13,6 +15,8 @@ import { MobileMoreActionsContext, type MobileMoreAction } from '../contexts/Mob
 import { useRecurringCheck } from '../hooks/useRecurringCheck';
 import { useCommandPalette } from '../hooks/useCommandPalette';
 import { useCommands } from '../app/commands';
+import { useExpenseStore } from '../app/store/useExpenseStore';
+import { useBudgetStore } from '../app/store/useBudgetStore';
 import styles from './AppLayout.module.scss';
 
 const pageVariants = {
@@ -21,9 +25,14 @@ const pageVariants = {
   exit: { opacity: 0, y: -8 },
 };
 
-export default function AppLayout() {
+export default function AppLayout({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    useExpenseStore.persist.rehydrate();
+    useBudgetStore.persist.rehydrate();
+  }, []);
+
   useRecurringCheck();
-  const location = useLocation();
+  const pathname = usePathname();
   const { isOpen: isPaletteOpen, open: openPalette, close: closePalette } = useCommandPalette();
   const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
   const [topBarActions, setTopBarActions] = useState<ReactNode>(null);
@@ -40,7 +49,7 @@ export default function AppLayout() {
           <div className={styles.mainContent}>
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
-                key={location.pathname}
+                key={pathname}
                 variants={pageVariants}
                 initial="initial"
                 animate="animate"
@@ -49,7 +58,7 @@ export default function AppLayout() {
                 style={{ height: '100%' }}
               >
                 <Suspense fallback={null}>
-                  <Outlet />
+                  {children}
                 </Suspense>
               </motion.div>
             </AnimatePresence>

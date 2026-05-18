@@ -1,4 +1,7 @@
-import { NavLink } from 'react-router-dom';
+'use client'
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { LucideIcon } from 'lucide-react';
 import {
   LayoutDashboard,
@@ -58,6 +61,9 @@ interface NavItemProps {
 }
 
 function NavItem({ to, label, icon: Icon, disabled }: NavItemProps) {
+  const pathname = usePathname();
+  const isActive = to === '/' ? pathname === '/' : pathname === to;
+
   if (disabled) {
     return (
       <span className={`${styles.navItem} ${styles.disabled}`}>
@@ -67,16 +73,13 @@ function NavItem({ to, label, icon: Icon, disabled }: NavItemProps) {
     );
   }
   return (
-    <NavLink
-      to={to}
-      end={to === '/'}
-      className={({ isActive }) =>
-        `${styles.navItem} ${isActive ? styles.active : ''}`
-      }
+    <Link
+      href={to}
+      className={`${styles.navItem} ${isActive ? styles.active : ''}`}
     >
       <Icon size={15} className={styles.navIcon} />
       <span className={styles.navLabel}>{label}</span>
-    </NavLink>
+    </Link>
   );
 }
 

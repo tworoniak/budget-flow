@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import Drawer from '../components/ui/Drawer';
