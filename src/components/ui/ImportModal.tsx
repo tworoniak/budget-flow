@@ -33,6 +33,10 @@ export default function ImportModal({ isOpen, onClose }: ImportModalProps) {
       setResult({ valid: [], errors: [{ row: 0, message: 'File must be a .csv' }] });
       return;
     }
+    if (file.size > 5 * 1024 * 1024) {
+      setResult({ valid: [], errors: [{ row: 0, message: 'File is too large (max 5 MB)' }] });
+      return;
+    }
     setFileName(file.name);
     const reader = new FileReader();
     reader.onload = (e) => {

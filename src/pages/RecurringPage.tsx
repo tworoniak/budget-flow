@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useExpenseStore } from '../app/store/useExpenseStore';
-import Modal from '../components/ui/Modal';
+import Drawer from '../components/ui/Drawer';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import RecurringList from '../components/recurring/RecurringList';
 import type { Expense } from '../types';
@@ -38,13 +38,13 @@ export default function RecurringPage() {
         <RecurringList onEdit={openEdit} />
       </div>
 
-      <Modal
+      <Drawer
         isOpen={isModalOpen}
         onClose={closeModal}
         title="Edit expense"
       >
         <ExpenseForm expense={editingExpense} onClose={closeModal} />
-      </Modal>
+      </Drawer>
     </div>
   );
 }

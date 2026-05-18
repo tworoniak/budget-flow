@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import { useMotionValue, useSpring, useTransform, motion } from 'framer-motion';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import styles from './SummaryCard.module.scss';
@@ -44,6 +44,8 @@ export default function SummaryCard({
   sparkColor = '#6366f1',
   accent,
 }: SummaryCardProps) {
+  const uid = useId();
+  const gradientId = `spark-${uid.replace(/:/g, '')}`;
   const parsed = parseValueStr(value);
   const motionNum = useMotionValue(0);
   const springNum = useSpring(motionNum, { mass: 0.5, stiffness: 100, damping: 18 });
@@ -77,7 +79,7 @@ export default function SummaryCard({
           <ResponsiveContainer width="100%" height={40}>
             <AreaChart data={sparkData} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>
               <defs>
-                <linearGradient id={`spark-${sparkColor.replace('#', '')}`} x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={sparkColor} stopOpacity={0.3} />
                   <stop offset="95%" stopColor={sparkColor} stopOpacity={0} />
                 </linearGradient>
@@ -87,7 +89,7 @@ export default function SummaryCard({
                 dataKey="amount"
                 stroke={sparkColor}
                 strokeWidth={1.5}
-                fill={`url(#spark-${sparkColor.replace('#', '')})`}
+                fill={`url(#${gradientId})`}
                 dot={false}
                 isAnimationActive={false}
               />
