@@ -71,6 +71,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
     }
   }, [expense, reset]);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const watchedAmount = watch('amount');
 
   const onSubmit = (data: ExpenseFormData) => {
