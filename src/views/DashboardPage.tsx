@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useCallback, useEffect } from 'react';
 import { Upload, Plus } from 'lucide-react';
 import { useExpenseStore } from '../app/store/useExpenseStore';

@@ -34,6 +34,6 @@ export const useBudgetStore = create<BudgetStore>()(
       setIncome: (income) => set({ income }),
       skipOnboarding: () => set({ hasSkippedOnboarding: true }),
     }),
-    { name: 'budgetflow-budget' }
+    { name: 'budgetflow-budget', skipHydration: true }
   )
 );

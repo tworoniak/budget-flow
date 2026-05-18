@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+'use client'
+
+import { useRouter } from 'next/navigation';
 import { Upload, Plus, FileText, Sparkles, BarChart2, Receipt } from 'lucide-react';
 import styles from './ExpensesEmptyState.module.scss';
 
@@ -8,7 +10,7 @@ interface ExpensesEmptyStateProps {
 }
 
 export default function ExpensesEmptyState({ onAddExpense, onImport }: ExpensesEmptyStateProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div className={styles.wrapper}>
@@ -49,7 +51,7 @@ export default function ExpensesEmptyState({ onAddExpense, onImport }: ExpensesE
             <span className={styles.tipDesc}>Coming in Phase 4 — just describe what you spent.</span>
           </div>
         </div>
-        <button className={styles.tip} onClick={() => navigate('/budget')}>
+        <button className={styles.tip} onClick={() => router.push('/budget')}>
           <span className={styles.tipIcon}><BarChart2 size={16} /></span>
           <div className={styles.tipText}>
             <span className={styles.tipTitle}>Set up budgets</span>

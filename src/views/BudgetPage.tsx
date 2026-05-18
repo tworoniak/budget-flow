@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useCallback, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { useBudgetStore } from '../app/store/useBudgetStore';

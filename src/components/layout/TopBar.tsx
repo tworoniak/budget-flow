@@ -1,4 +1,6 @@
-import { useLocation } from 'react-router-dom';
+'use client'
+
+import { usePathname } from 'next/navigation';
 import { Search } from 'lucide-react';
 import type { ReactNode } from 'react';
 import styles from './TopBar.module.scss';
@@ -16,7 +18,7 @@ interface TopBarProps {
 }
 
 export default function TopBar({ actions, onSearchClick }: TopBarProps) {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   const pageLabel = ROUTE_LABELS[pathname] ?? 'BudgetFlow';
 
   return (
