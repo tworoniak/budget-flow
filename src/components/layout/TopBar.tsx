@@ -10,6 +10,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/expenses': 'Expenses',
   '/budget': 'Budgets',
   '/recurring': 'Recurring',
+  '/income': 'Income',
 };
 
 interface TopBarProps {
