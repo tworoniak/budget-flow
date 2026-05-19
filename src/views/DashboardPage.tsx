@@ -18,6 +18,7 @@ import RecentTransactions from '../components/dashboard/RecentTransactions';
 import SpendingByCategory from '../components/dashboard/SpendingByCategory';
 import ForecastBadge from '../components/dashboard/ForecastBadge';
 import { useDashboardData } from '../hooks/useDashboardData';
+import { useSession } from 'next-auth/react';
 import styles from './DashboardPage.module.scss';
 
 const MONTH_NAMES = [
@@ -30,6 +31,8 @@ export default function DashboardPage() {
   const [isImportOpen, setIsImportOpen] = useState(false);
   const { expenses } = useExpenseStore();
   const data = useDashboardData();
+  const { data: session } = useSession();
+  const firstName = session?.user?.name?.split(' ')[0] ?? 'there';
   const setTopBarActions = useSetTopBarActions();
 
   const now = new Date();
@@ -68,7 +71,7 @@ export default function DashboardPage() {
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
-        <h1 className={styles.greeting}>Hi Alex — here's your money this month</h1>
+        <h1 className={styles.greeting}>Hi {firstName} — here&apos;s your money this month</h1>
         <p className={styles.date}>{monthLabel} · {expenses.length} transactions</p>
         {!isEmpty && (
           <ForecastBadge
