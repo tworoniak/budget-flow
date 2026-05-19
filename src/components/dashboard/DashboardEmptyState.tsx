@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Upload, Plus, FileText, BarChart2, Wallet } from 'lucide-react';
 import { useBudgetStore } from '../../app/store/useBudgetStore';
 import { useExpenseStore } from '../../app/store/useExpenseStore';
+import { useLocalStore } from '../../app/store/useLocalStore';
 import SetupChecklist from '../ui/SetupChecklist';
 import styles from './DashboardEmptyState.module.scss';
 
@@ -14,7 +15,8 @@ interface DashboardEmptyStateProps {
 
 export default function DashboardEmptyState({ onAddExpense, onImport }: DashboardEmptyStateProps) {
   const router = useRouter();
-  const { income, categories, hasSkippedOnboarding, skipOnboarding } = useBudgetStore();
+  const { income, categories } = useBudgetStore();
+  const { hasSkippedOnboarding, skipOnboarding } = useLocalStore();
   const { expenses } = useExpenseStore();
 
   const steps = [

@@ -26,10 +26,13 @@ const pageVariants = {
 };
 
 export default function AppLayout({ children }: { children: ReactNode }) {
+  const fetchExpenses = useExpenseStore((s) => s.fetchExpenses);
+  const fetchBudget = useBudgetStore((s) => s.fetchBudget);
+
   useEffect(() => {
-    useExpenseStore.persist.rehydrate();
-    useBudgetStore.persist.rehydrate();
-  }, []);
+    fetchExpenses();
+    fetchBudget();
+  }, [fetchExpenses, fetchBudget]);
 
   useRecurringCheck();
   const pathname = usePathname();

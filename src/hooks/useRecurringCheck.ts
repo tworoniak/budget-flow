@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { useExpenseStore } from '../app/store/useExpenseStore';
+import { useLocalStore } from '../app/store/useLocalStore';
 import { generateRecurringForMonth } from '../utils/recurringExpenses';
 
 export function useRecurringCheck() {
-  const { expenses, lastRecurringCheck, addExpense, setLastRecurringCheck } = useExpenseStore();
+  const { expenses, addExpense } = useExpenseStore();
+  const { lastRecurringCheck, setLastRecurringCheck } = useLocalStore();
 
   useEffect(() => {
     const now = new Date();
