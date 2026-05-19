@@ -1,11 +1,16 @@
 import type { NextAuthConfig } from "next-auth"
+import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 import GitHub from "next-auth/providers/github"
 
 const PUBLIC_PATHS = ['/sign-in', '/register']
 
 export const authConfig = {
-  providers: [Google, GitHub],
+  providers: [
+    Google,
+    GitHub,
+    Credentials({ authorize: async () => null }),
+  ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user
