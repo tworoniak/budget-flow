@@ -46,7 +46,7 @@ const NAV_SECTIONS: NavSection[] = [
     label: 'Insights',
     items: [
       { to: '/analytics', label: 'Analytics', icon: BarChart2, disabled: true },
-      { to: '/income', label: 'Income', icon: DollarSign, disabled: true },
+      { to: '/income', label: 'Income', icon: DollarSign },
       { to: '/recurring', label: 'Recurring', icon: RefreshCw },
     ],
   },

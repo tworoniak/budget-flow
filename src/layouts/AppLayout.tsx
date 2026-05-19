@@ -17,6 +17,7 @@ import { useCommandPalette } from '../hooks/useCommandPalette';
 import { useCommands } from '../app/commands';
 import { useExpenseStore } from '../app/store/useExpenseStore';
 import { useBudgetStore } from '../app/store/useBudgetStore';
+import { useIncomeStore } from '../app/store/useIncomeStore';
 import styles from './AppLayout.module.scss';
 
 const pageVariants = {
@@ -28,11 +29,13 @@ const pageVariants = {
 export default function AppLayout({ children }: { children: ReactNode }) {
   const fetchExpenses = useExpenseStore((s) => s.fetchExpenses);
   const fetchBudget = useBudgetStore((s) => s.fetchBudget);
+  const fetchIncome = useIncomeStore((s) => s.fetchIncome);
 
   useEffect(() => {
     fetchExpenses();
     fetchBudget();
-  }, [fetchExpenses, fetchBudget]);
+    fetchIncome();
+  }, [fetchExpenses, fetchBudget, fetchIncome]);
 
   useRecurringCheck();
   const pathname = usePathname();

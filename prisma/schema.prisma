@@ -20,6 +20,8 @@ model User {
   budgetCategories BudgetCategory[]
   settings         UserSettings?
   tags             Tag[]
+  incomeSources    IncomeSource[]
+  incomeEntries    IncomeEntry[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -89,6 +91,45 @@ model ExpenseTag {
   tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@id([expenseId, tagId])
+}
+
+model IncomeSource {
+  id        String   @id @default(cuid())
+  name      String
+  type      String   // Salary | Freelance | Investments | Other
+  cadence   String   // weekly | bi-weekly | monthly | quarterly | annually
+  amount    Float
+  nextDate  DateTime?
+  isActive  Boolean  @default(true)
+
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  entries IncomeEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, isActive])
+}
+
+model IncomeEntry {
+  id       String   @id @default(cuid())
+  title    String
+  amount   Float
+  date     DateTime
+  notes    String?
+
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sourceId String?
+  source   IncomeSource? @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, date])
 }
 
 // ── NextAuth models ────────────────────────────────────────────────────────────

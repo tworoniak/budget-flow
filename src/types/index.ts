@@ -30,3 +30,25 @@ export interface DashboardSummary {
   savingsRate: number;
   topCategory: string;
 }
+
+export type IncomeType = 'Salary' | 'Freelance' | 'Investments' | 'Other';
+export type IncomeCadence = 'weekly' | 'bi-weekly' | 'monthly' | 'quarterly' | 'annually';
+
+export interface IncomeSource {
+  id: string;
+  name: string;
+  type: IncomeType;
+  cadence: IncomeCadence;
+  amount: number;
+  nextDate?: string;
+  isActive: boolean;
+}
+
+export interface IncomeEntry {
+  id: string;
+  title: string;
+  amount: number;
+  date: string;
+  notes?: string;
+  sourceId?: string;
+}
