@@ -10,6 +10,7 @@ import Drawer from '../components/ui/Drawer';
 import ImportModal from '../components/ui/ImportModal';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import DashboardEmptyState from '../components/dashboard/DashboardEmptyState';
+import DashboardSkeleton from '../components/dashboard/DashboardSkeleton';
 import MobileDashboard from '../components/dashboard/MobileDashboard';
 import SummaryCard from '../components/dashboard/SummaryCard';
 import CumulativeSpendChart from '../components/dashboard/CumulativeSpendChart';
@@ -29,7 +30,7 @@ const MONTH_NAMES = [
 export default function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
-  const { expenses } = useExpenseStore();
+  const { expenses, isLoading } = useExpenseStore();
   const data = useDashboardData();
   const { data: session } = useSession();
   const firstName = session?.user?.name?.split(' ')[0] ?? 'there';
@@ -39,7 +40,7 @@ export default function DashboardPage() {
   const monthLabel = `${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
 
   const remainingPositive = data.remainingBudget >= 0;
-  const isEmpty = expenses.length === 0;
+  const isEmpty = !isLoading && expenses.length === 0;
 
   const handleExport = useCallback(() => downloadCsv(expenses), [expenses]);
   const handleAdd = useCallback(() => setIsModalOpen(true), []);
@@ -67,6 +68,8 @@ export default function DashboardPage() {
     ]);
     return () => setMobileMoreActions([]);
   }, [setMobileMoreActions, handleExport]);
+
+  if (isLoading) return <DashboardSkeleton />;
 
   return (
     <div className={styles.page}>

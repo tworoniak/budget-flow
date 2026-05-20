@@ -14,7 +14,7 @@ interface ExpenseStore {
 
 export const useExpenseStore = create<ExpenseStore>()((set, get) => ({
   expenses: [],
-  isLoading: false,
+  isLoading: true,
 
   fetchExpenses: async () => {
     set({ isLoading: true });

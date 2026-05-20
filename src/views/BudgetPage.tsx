@@ -7,13 +7,14 @@ import { useExpenseStore } from '../app/store/useExpenseStore';
 import { calcTotalBudgeted, calcTotalSpent, calcSavingsRate } from '../utils/budgetCalculations';
 import { useSetTopBarActions } from '../contexts/TopBarActionsContext';
 import Modal from '../components/ui/Modal';
+import BudgetSkeleton from '../components/budget/BudgetSkeleton';
 import BudgetForm from '../components/budget/BudgetForm';
 import BudgetList from '../components/budget/BudgetList';
 import type { BudgetCategory } from '../types';
 import styles from './BudgetPage.module.scss';
 
 export default function BudgetPage() {
-  const { categories, income, deleteCategory, setIncome } = useBudgetStore();
+  const { categories, income, isLoading, deleteCategory, setIncome } = useBudgetStore();
   const { expenses } = useExpenseStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<BudgetCategory | undefined>();
@@ -59,6 +60,8 @@ export default function BudgetPage() {
   }, [setTopBarActions, openAdd]);
 
   const usedCategoryNames = categories.map((c) => c.name);
+
+  if (isLoading) return <BudgetSkeleton />;
 
   return (
     <div className={styles.page}>

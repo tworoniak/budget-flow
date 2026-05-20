@@ -1,0 +1,18 @@
+@use '../../styles/variables' as *;
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $bg-card 25%,
+    $bg-hover 50%,
+    $bg-card 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: $radius-md;
+}

@@ -18,7 +18,7 @@ interface IncomeStore {
 export const useIncomeStore = create<IncomeStore>()((set, get) => ({
   sources: [],
   entries: [],
-  isLoading: false,
+  isLoading: true,
 
   fetchIncome: async () => {
     set({ isLoading: true });

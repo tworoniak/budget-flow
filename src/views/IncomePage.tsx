@@ -25,6 +25,7 @@ import { useIncomeData, type PeriodType } from '../hooks/useIncomeData';
 import Drawer from '../components/ui/Drawer';
 import IncomeSourceForm from '../components/income/IncomeSourceForm';
 import IncomeEntryForm from '../components/income/IncomeEntryForm';
+import IncomeSkeleton from '../components/income/IncomeSkeleton';
 import type { IncomeSource, IncomeEntry } from '../types';
 import styles from './IncomePage.module.scss';
 
@@ -70,7 +71,7 @@ function daysUntil(dateStr: string) {
 }
 
 export default function IncomePage() {
-  const { sources, entries, deleteSource, deleteEntry } = useIncomeStore();
+  const { sources, entries, isLoading, deleteSource, deleteEntry } = useIncomeStore();
   const setTopBarActions = useSetTopBarActions();
   const [period, setPeriod] = useState<PeriodType>('monthly');
   const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
@@ -137,6 +138,8 @@ export default function IncomePage() {
   }, [sourceMenuId, entryMenuId]);
 
   const activeSources = sources.filter((s) => s.isActive);
+
+  if (isLoading) return <IncomeSkeleton />;
 
   return (
     <div className={styles.page}>

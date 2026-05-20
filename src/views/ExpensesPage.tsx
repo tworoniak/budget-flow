@@ -15,6 +15,7 @@ import ExpenseList from '../components/expenses/ExpenseList';
 import ExpenseListGrouped from '../components/expenses/ExpenseListGrouped';
 import MobileFilterSheet from '../components/expenses/MobileFilterSheet';
 import ExpensesEmptyState from '../components/expenses/ExpensesEmptyState';
+import ExpensesSkeleton from '../components/expenses/ExpensesSkeleton';
 import ActiveFilterChips from '../components/expenses/ActiveFilterChips';
 import ExpenseTabs, { type ExpenseTab } from '../components/expenses/ExpenseTabs';
 import SpendingPanel from '../components/expenses/SpendingPanel';
@@ -41,7 +42,7 @@ function applyTabFilter(expenses: Expense[], tab: ExpenseTab): Expense[] {
 }
 
 export default function ExpensesPage() {
-  const { expenses } = useExpenseStore();
+  const { expenses, isLoading } = useExpenseStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
@@ -156,7 +157,9 @@ export default function ExpensesPage() {
 
       <ActiveFilterChips filters={filters} onChange={setFilters} />
 
-      {expenses.length === 0 ? (
+      {isLoading ? (
+        <ExpensesSkeleton />
+      ) : expenses.length === 0 ? (
         <ExpensesEmptyState onAddExpense={openAdd} onImport={handleImport} />
       ) : (
         <div className={styles.body}>
