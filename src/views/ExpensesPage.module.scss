@@ -81,7 +81,7 @@
   background-color: $bg-card;
   border: 1px solid $border-default;
   border-radius: $radius-lg;
-  overflow: hidden;
+  overflow: clip; // clip visually but does not break position:sticky inside
   min-height: 120px;
 }
 

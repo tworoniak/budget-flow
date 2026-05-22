@@ -21,6 +21,10 @@
   padding: $space-2 $space-4;
   border-bottom: 1px solid $border-subtle;
   z-index: 1;
+
+  @media (max-width: $bp-mobile) {
+    top: 0;
+  }
 }
 
 .empty {
